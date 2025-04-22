@@ -14,7 +14,7 @@ Een tool voor zzp'ers en vakmensen om klanten, klussen, materialen en facturen e
 ## 🚀 Installatie
 
 ```bash
-git clone https://github.com/jouwgebruikersnaam/klusbeheer.git
+git clone https://github.com/graafschapcollegestudent/WorkshopPeriode4.git
 cd klusbeheer
 npm install
 npm start
