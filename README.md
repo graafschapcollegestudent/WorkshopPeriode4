@@ -15,6 +15,6 @@ Een tool voor zzp'ers en vakmensen om klanten, klussen, materialen en facturen e
 
 ```bash
 git clone https://github.com/graafschapcollegestudent/WorkshopPeriode4.git
-cd klusbeheer
+cd WorkshopPeriode4
 npm install
 npm start
