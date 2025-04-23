@@ -18,4 +18,9 @@ class Klant extends Database {
       return parent::voerQueryUit($query, $params) > 0;
     }
   }
+  public function geefKlantenOpAdres($zoekterm){
+    $query = "SELECT * FROM klanten WHERE adres like ? OR klant like ?;";
+    $params = ["%{$zoekterm}%", "%{$zoekterm}%"];
+    return parent::voerQueryUit($query, $params);
+  }
 }
