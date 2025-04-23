@@ -1,7 +1,7 @@
 <?php
 include_once '../src/klant.php';
 $klant = new Klant();
-
+$alleKlanten = $klant->geefAlleKlanten();
 ?>
 <form action="" method="POST">
   Voer een adres in 
