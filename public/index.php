@@ -2,7 +2,21 @@
 include_once '../src/klant.php';
 $klant = new Klant();
 
-$alleKlanten = $klant->geefAlleKlanten();
+?>
+<form action="" method="POST">
+  Voer een adres in 
+  <input type="text" name="invoerAdres" id="invoer">
+  <input type="submit" value="Zoeken" name="zoeken">
+</form>
+
+<?php if (isset($_POST['zoeken'])) {
+  $zoekterm = $_POST['invoerAdres'];
+  if ($zoekterm == "") {
+    $alleKlanten = $klant->geefAlleKlanten();
+  } else {
+    $alleKlanten = $klant->geefKlantenOpAdres($zoekterm);
+  }
+}
 
 ?>
 <table border="1">
