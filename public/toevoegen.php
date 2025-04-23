@@ -16,6 +16,17 @@
         <input type="text" name="telefoon" id="telefoon" placeholder="Telefoon" required>
         <br>
         <input type="text" name="adres" id="adres" placeholder="Adres" required>
+        <br>
+        <input type="submit" value="Toevoegen" name="submit">
     </form>
 </body>
 </html>
+
+<?php
+require_once '../config.php';
+$naam=$_POST['voornaam'];
+$achternaam=$_POST['achternaam'];
+$email=$_POST['email'];
+$telefoon=$_POST['telefoon'];   
+$adres=$_POST['adres'];
+$submit=$_POST['submit'];
