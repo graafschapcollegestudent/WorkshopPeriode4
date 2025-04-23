@@ -8,6 +8,4 @@ echo "<pre>";
 print_r($alleKlanten);
 
 ?>
-<form action="toevoegen.php">
-  <input type="submit" value="Klant toevoegen">
-</form>
+<form action="toevoegen.php">Toevoegen</form>
