@@ -23,10 +23,20 @@
 </html>
 
 <?php
-require_once '../config.php';
-$naam=$_POST['voornaam'];
-$achternaam=$_POST['achternaam'];
-$email=$_POST['email'];
-$telefoon=$_POST['telefoon'];   
-$adres=$_POST['adres'];
-$submit=$_POST['submit'];
+include_once '../src/klant.php';
+$nieuweKlant = new Klant();
+
+if (isset($_POST['submit'])) {
+    $naam = "{$_POST['voornaam']} {$_POST['achternaam']}";
+    $adres = $_POST['adres'];
+    $telefoon = $_POST['telefoon'];
+    $email = $_POST['email'];
+
+    if ($nieuweKlant->voegKlantToe($naam, $adres, $telefoon, $email)) {
+        header('Location: index.php');
+    } else {
+        echo "het toevoegen is niet gelukt";
+    }
+
+  }
+  

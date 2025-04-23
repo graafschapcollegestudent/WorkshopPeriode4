@@ -8,4 +8,14 @@ class Klant extends Database {
 
     return parent::voerQueryUit($query);
   }
+  public function voegKlantToe($naam, $adres, $telefoon, $email){
+    if ($naam == "" || $adres == "" || $telefoon == "" || $email == "") {
+      return false;
+    } else {
+      $query = "INSERT INTO klanten (klant, adres, telefoonnummer, `e-mailadres`) VALUES (?, ?, ?, ?);";
+      $params = [$naam, $adres, $telefoon, $email];
+
+      return parent::voerQueryUit($query, $params) > 0;
+    }
+  }
 }
