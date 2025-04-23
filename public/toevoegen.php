@@ -8,12 +8,14 @@
 <body>
     <form action="" method="post">
         <input type="text" name="voornaam" id="voornaam" placeholder="Voornaam" required>
+        <br>
         <input type="text" name="achternaam" id="achternaam" placeholder="Achternaam" required>
+        <br>
         <input type="text" name="email" id="email" placeholder="Email" required>
+        <br>
         <input type="text" name="telefoon" id="telefoon" placeholder="Telefoon" required>
+        <br>
         <input type="text" name="adres" id="adres" placeholder="Adres" required>
-        <input type="text" name="postcode" id="postcode" placeholder="Postcode" required>
-        <input type="text" name="woonplaats" id="woonplaats" placeholder="Woonplaats" required>
     </form>
 </body>
 </html>
