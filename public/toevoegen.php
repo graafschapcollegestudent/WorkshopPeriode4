@@ -33,9 +33,9 @@ if (isset($_POST['submit'])) {
     $adres = $_POST['adres'];
     $telefoon = $_POST['telefoon'];
     $email = $_POST['email'];
-    $opmerking = $_POST['email'];
+    $opmerking = $_POST['opmerking'];
 
-    if ($nieuweKlant->voegKlantToe($naam, $adres, $telefoon, $email, opmerking)) {
+    if ($nieuweKlant->voegKlantToe($naam, $adres, $telefoon, $email, $opmerking)) {
         header('Location: index.php');
     } else {
         echo "het toevoegen is niet gelukt";
