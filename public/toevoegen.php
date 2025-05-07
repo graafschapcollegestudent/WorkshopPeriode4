@@ -17,7 +17,7 @@
         <br>
         <input type="text" name="adres" id="adres" placeholder="Adres" required>
         <br>
-        <input type="text" name="opmerking" id="opmerking" placeholder="Opmerking" required>
+        <input type="text" name="opmerking" id="opmerking" placeholder="Opmerking">
         <br>
         <input type="submit" value="Toevoegen" name="submit">
     </form>
