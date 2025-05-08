@@ -4,7 +4,7 @@ $klant = new Klant();
 $alleKlanten = $klant->geefAlleKlanten();
 ?>
 <form action="" method="POST">
-  Voer een adres in 
+  Voer een adres of naam in 
   <input type="text" name="invoerAdres" id="invoer">
   <input type="submit" value="Zoeken" name="zoeken">
 </form>
