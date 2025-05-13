@@ -4,7 +4,7 @@ $klant = new Klant();
 $alleKlanten = $klant->geefAlleKlanten();
 ?>
 <form action="" method="POST">
-  Voer een adres of naam in 
+  Voer een adres in 
   <input type="text" name="invoerAdres" id="invoer">
   <input type="submit" value="Zoeken" name="zoeken">
 </form>
@@ -19,19 +19,23 @@ $alleKlanten = $klant->geefAlleKlanten();
 }
 
 ?>
+</body>
+</html>
 <table border="1">
   <tr>
     <th>Klant</th>
     <th>e-mail</th>
     <th>Telefoonnummer</th>
     <th>Adres</th>
+    <th>Bekijk</th>
   </tr>
   <?php foreach ($alleKlanten as $rij): ?>
     <tr>
-      <td><?= $rij['klant']; ?></td>
-      <td><?= $rij['e-mailadres']; ?></td>
-      <td><?= $rij['telefoonnummer']; ?></td>
-      <td><?= $rij['adres']; ?></td>
+      <td><?= $rij['k.klant']; ?></td>
+      <td><?= $rij['k.e-mailadres']; ?></td>
+      <td><?= $rij['k.telefoonnummer']; ?></td>
+      <td><?= $rij['k.adres']; ?></td>
+      <td><a href="bekijkpagina.php?id=<?= $rij['k.klantId']; ?>">Bekijk</a></td>
     </tr>
   <?php endforeach; ?>
 </table>
