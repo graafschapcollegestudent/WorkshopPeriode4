@@ -38,7 +38,6 @@ $alleKlanten = $klant->geefAlleKlanten();
 
       <td><a href="bekijkpagina.php?id=<?= $rij['klantId']; ?>">Bekijk</a></td>
 
-      <td><a href="bekijkpagina.php?id=<?= $rij['klantId']?>">Bekijk</a></td>
 
     </tr>
   <?php endforeach; ?>

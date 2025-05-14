@@ -16,7 +16,7 @@ if (isset($_POST["berekenen"]))
     echo $uren;
     echo $uurTarief;
 }
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 
