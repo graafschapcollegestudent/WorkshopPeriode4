@@ -20,14 +20,19 @@ if (isset($_POST["berekenen"]))
 
 include_once '../src/kosten.php';
 $kosten = new Kosten();
-
-if (isset($_POST['submit'])) {
+if (isset($_POST['berekenen'])) {
     $uren = $_POST['uren'];
-    if ($kosten->VoegUrenToe($uren)) {
-        header('Location: bekijkpagina.php');
-    } else {
-        echo "het toevoegen is niet gelukt";
-    }
+    $uurTarief = $_POST["uurTarief"];
+    $voorrijKosten = $_POST["voorrijKosten"];
+    $GewerkteUren = $uurTarief * $uren;
+    $totaalBedrag = $GewerkteUren + $voorrijKosten;
+    $klantId = $_GET['id'];
 
-  }
+    if ($kosten->VoegUrenToe($uren, $totaalBedrag, $klantId)) {
+        header("Location: bekijkpagina.php?id=" . $klantId);
+        exit;
+    } else {
+        echo "Het toevoegen is niet gelukt";
+    }
+}
 ?>
