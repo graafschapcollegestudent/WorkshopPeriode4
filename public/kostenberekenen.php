@@ -15,6 +15,9 @@ if (isset($_POST["berekenen"]))
     echo $voorrijKosten;
     echo $uren;
     echo $uurTarief;
+
+    $totaal = (int)$uren * (int)$uurTarief;
+    echo "<br> $totaal";
 }
 
 
@@ -23,7 +26,8 @@ $kosten = new Kosten();
 
 if (isset($_POST['submit'])) {
     $uren = $_POST['uren'];
-    if ($kosten->VoegUrenToe($uren)) {
+    $uurTarief = $_POST['uurTarief'];
+    if ($kosten->VoegUrenToe($uren, $uurTarief)) {
         header('Location: bekijkpagina.php');
     } else {
         echo "het toevoegen is niet gelukt";
