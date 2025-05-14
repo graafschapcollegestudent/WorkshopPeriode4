@@ -51,4 +51,10 @@ $klantGegevens = $klant->geefKlantOpId($id);
         <input type="submit" value="Terug naar overzicht">
     </form>
 
+</body>
+</html>
+
+<a href="kostenberekenen.php?id=<?= $klantGegevens['klantId']?>">kostenberekenen</a>
+
+
 <a href="kostenberekenen.php">test</a>
