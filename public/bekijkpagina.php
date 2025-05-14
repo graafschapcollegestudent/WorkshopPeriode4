@@ -44,5 +44,5 @@ $klantGegevens = $klant->geefKlantOpId($id);
 </body>
 </html>
 
-<a href="kostenberekenen.php?id=<?= $klantGegevens['klantId']?>">test</a>
+<a href="kostenberekenen.php?id=<?= $klantGegevens['klantId']?>">kostenberekenen</a>
 
