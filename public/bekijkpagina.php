@@ -9,10 +9,12 @@ $klantGegevens = $klant->geefKlantOpId($id);
 
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <title>Details van de klant</title>
-</head> 
+</head>
+
 <body>
     <h2>Details van de klant:</h2>
     <table border='1' cellpadding='5' cellspacing='0'>
@@ -22,8 +24,10 @@ $klantGegevens = $klant->geefKlantOpId($id);
             <th>Telefoonnummer</th>
             <th>E-mailadres</th>
             <th>KlantId</th>
-            <th>Klus</th>
-            <th>DetailsKlus</th>
+            <?php if (isset($klantGegevens['klus'])) { ?>
+                <th>Klus</th>
+                <th>DetailsKlus</th>
+            <?php } ?>
         </tr>
         <tr>
             <td><?php echo $klantGegevens['naam']; ?></td>
@@ -31,18 +35,20 @@ $klantGegevens = $klant->geefKlantOpId($id);
             <td><?php echo $klantGegevens['telefoon']; ?></td>
             <td><?php echo $klantGegevens['email']; ?></td>
             <td><?php echo $klantGegevens['klantId']; ?></td>
-            <td><?php echo $klantGegevens['klus']; ?></td>
-            <td><?php echo $klantGegevens['detailsKlus']; ?></td>
+            <?php if (isset($klantGegevens['klus'])) { ?>
+                <td><?php echo $klantGegevens['klus']; ?></td>
+                <td><?php echo $klantGegevens['detailsKlus']; ?></td>
+            <?php } ?>
         </tr>
     </table>
 
     <br>
-    
+    <form action="klusToevoegen.php" method="get">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($klantGegevens['klantId']) ?>">
+        <input type="submit" value="Klus Toevoegen">
+    </form>
     <form action="index.php">
         <input type="submit" value="Terug naar overzicht">
     </form>
-</body>
-</html>
 
 <a href="kostenberekenen.php">test</a>
-
