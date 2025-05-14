@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 14 mei 2025 om 08:51
+-- Gegenereerd op: 14 mei 2025 om 10:09
 -- Serverversie: 5.7.17
 -- PHP-versie: 8.3.3
 
@@ -54,11 +54,11 @@ INSERT INTO `klanten` (`klantId`, `klant`, `adres`, `telefoonnummer`, `e-mailadr
 
 CREATE TABLE `klusdetails` (
   `KlusId` int(10) NOT NULL,
-  `Klus` varchar(100) NOT NULL,
-  `DetailsKlus` varchar(250) NOT NULL,
+  `Klus` varchar(100) DEFAULT NULL,
+  `DetailsKlus` varchar(250) DEFAULT NULL,
   `klantId` int(100) DEFAULT NULL,
-  `urenGewerkt` int(100) NOT NULL,
-  `totaalBedrag` int(100) NOT NULL
+  `urenGewerkt` int(100) DEFAULT NULL,
+  `totaalBedrag` int(100) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -91,7 +91,7 @@ ALTER TABLE `klanten`
 -- AUTO_INCREMENT voor een tabel `klusdetails`
 --
 ALTER TABLE `klusdetails`
-  MODIFY `KlusId` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `KlusId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
