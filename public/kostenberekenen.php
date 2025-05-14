@@ -7,16 +7,6 @@
 </form>
 
 <?php
-if (isset($_POST["berekenen"]))
-{
-    $voorrijKosten = $_POST["voorrijKosten"];
-    $uren = $_POST["uren"];
-    $uurTarief = $_POST["uurTarief"];
-    echo $voorrijKosten;
-    echo $uren;
-    echo $uurTarief;
-}
-
 
 include_once '../src/kosten.php';
 $kosten = new Kosten();
