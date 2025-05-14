@@ -22,23 +22,22 @@ class Klant extends Database
   public function geefKlantOpId($id)
   {
     $query = "SELECT 
-    k.klant AS naam,
-    k.adres AS adres,
-    k.telefoonnummer AS telefoon,
-    k.`e-mailadres` AS email,
-    k.klantId AS klantId,
-    d.klus AS klus,
-    d.detailsKlus AS detailsKlus
-
+        k.klant AS naam,
+        k.adres AS adres,
+        k.telefoonnummer AS telefoon,
+        k.`e-mailadres` AS email,
+        k.klantId AS klantId,
+        d.klus AS klus,
+        d.detailsKlus AS detailsKlus,
+        d.KlusId AS klusId
     FROM klanten AS k
     LEFT JOIN klusdetails AS d 
-    ON d.klantId = k.klantId
-    
+        ON d.klantId = k.klantId
     WHERE k.klantId = ?;";
 
     $params = [$id];
 
-    return parent::voerQueryUit($query, $params)[0];
+    return parent::voerQueryUit($query, $params);
   }
   public function voegKlantToe($naam, $adres, $telefoon, $email, $opmerking)
   {

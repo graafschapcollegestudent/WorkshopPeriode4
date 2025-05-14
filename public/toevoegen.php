@@ -26,6 +26,7 @@
 
 <?php
 include_once '../src/kosten.php';
+include_once '../src/klant.php';
 $nieuweKlant = new Klant();
 
 if (isset($_POST['submit'])) {

@@ -10,4 +10,24 @@ class Klus extends Database
 
     return parent::voerQueryUit($query, $params) > 0;
   }
+  public function geefKlusOpId($klusId)
+  {
+    $query = "SELECT 
+        d.klus AS klusTitel, 
+        d.DetailsKlus AS klusDetails
+        FROM klusdetails AS d
+        WHERE d.KlusId = ?";
+    $params = [$klusId];
+
+    $result = parent::voerQueryUit($query, $params);
+
+    return $result && count($result) > 0 ? $result[0] : null;
+  }
+  public function updateKlus($klusId, $klusTitel, $klusDetail)
+  {
+    $query = "UPDATE klusdetails SET klus = ?, DetailsKlus = ? WHERE KlusId = ?";
+    $params = [$klusTitel, $klusDetail, $klusId];
+
+    return parent::voerQueryUit($query, $params) > 0;
+  }
 }

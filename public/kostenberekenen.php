@@ -3,6 +3,7 @@
     Voorrijkosten: <input type="text" name="voorrijKosten" id=""><br>
     Aantal uur gewerkt: <input type="text" name="uren" id=""><br>
     Uurtarief: <input type="text" name="uurTarief" id=""><br>
+    <input type="submit" value="berekenen" name="berekenen">
 </form>
 
 <?php

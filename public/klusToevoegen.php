@@ -9,7 +9,7 @@ $klantGegevens = $klant->geefKlantOpId($id);
 
 print_r($klantGegevens);
 
-echo "<h2>{$klantGegevens['naam']}</h2>";
+echo "<h2>{$klantGegevens[0]['naam']}</h2>";
 
 ?>
 <form method="get">
@@ -26,7 +26,7 @@ echo "<h2>{$klantGegevens['naam']}</h2>";
 <?php
 if (isset($_GET['klusToevoegen'])) {
   $klusDetail = $_GET['klusBeschrijving'];
-  $klantId = $klantGegevens['klantId'];
+  $klantId = $klantGegevens[0]['klantId'];
   $klusTitel = $_GET['klusTitel'];
   $klus->voegKlusToe($klantId, $klusTitel, $klusDetail);
 
