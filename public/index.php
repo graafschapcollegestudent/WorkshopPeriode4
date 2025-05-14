@@ -19,6 +19,8 @@ $alleKlanten = $klant->geefAlleKlanten();
 }
 
 ?>
+</body>
+</html>
 <table border="1">
   <tr>
     <th>Klant</th>
@@ -29,11 +31,10 @@ $alleKlanten = $klant->geefAlleKlanten();
   </tr>
   <?php foreach ($alleKlanten as $rij): ?>
     <tr>
-      <td><?= $rij['k.klant']; ?></td>
-      <td><?= $rij['k.e-mailadres']; ?></td>
-      <td><?= $rij['k.telefoonnummer']; ?></td>
-      <td><?= $rij['k.adres']; ?></td>
-      <td><a href="bekijkpagina.php?id=<?= $rij['k.klantId']; ?>">Bekijk</a></td>
+      <td><?= $rij['klant']; ?></td>
+      <td><?= $rij['e-mailadres']; ?></td>
+      <td><?= $rij['telefoonnummer']; ?></td>
+      <td><?= $rij['adres']; ?></td>
     </tr>
   <?php endforeach; ?>
 </table>
