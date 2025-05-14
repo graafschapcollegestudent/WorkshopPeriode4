@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 07 mei 2025 om 10:24
+-- Gegenereerd op: 14 mei 2025 om 08:51
 -- Serverversie: 5.7.17
 -- PHP-versie: 8.3.3
 
@@ -31,19 +31,20 @@ USE `klusjesman`;
 
 CREATE TABLE `klanten` (
   `klantId` int(11) NOT NULL,
-  `klant` varchar(25) NOT NULL,
+  `klant` varchar(50) NOT NULL,
   `adres` varchar(50) NOT NULL,
   `telefoonnummer` varchar(50) NOT NULL,
-  `e-mailadres` varchar(100) NOT NULL
+  `e-mailadres` varchar(100) NOT NULL,
+  `opmerking` varchar(250) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `klanten`
 --
 
-INSERT INTO `klanten` (`klantId`, `klant`, `adres`, `telefoonnummer`, `e-mailadres`) VALUES
-(1, 'Piet Janssen', 'singel 123 3025PX Hardewijk', '0612345678', 'piet.janssen@live.nl'),
-(2, 'Jan Piettersen', 'singel 123 3024PX Hardewijk', '0612345678', 'piet.janssen@live.nl');
+INSERT INTO `klanten` (`klantId`, `klant`, `adres`, `telefoonnummer`, `e-mailadres`, `opmerking`) VALUES
+(1, 'Lucas Bussink', 'haverkamp 1a Doetinchem', '06-12345678', 'lucas.bussink@student.graafschapcollege.nl', ''),
+(3, 'Lucas Bussink', 'haverkamp 1a Doetinchem', '06-12345678', 'lucas.bussink@student.graafschapcollege.nl', '');
 
 -- --------------------------------------------------------
 
@@ -55,7 +56,9 @@ CREATE TABLE `klusdetails` (
   `KlusId` int(10) NOT NULL,
   `Klus` varchar(100) NOT NULL,
   `DetailsKlus` varchar(250) NOT NULL,
-  `OmschrijvingKlus` varchar(250) NOT NULL
+  `klantId` int(100) DEFAULT NULL,
+  `urenGewerkt` int(100) NOT NULL,
+  `totaalBedrag` int(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -82,7 +85,7 @@ ALTER TABLE `klusdetails`
 -- AUTO_INCREMENT voor een tabel `klanten`
 --
 ALTER TABLE `klanten`
-  MODIFY `klantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `klantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `klusdetails`

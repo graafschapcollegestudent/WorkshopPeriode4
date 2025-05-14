@@ -35,7 +35,11 @@ $alleKlanten = $klant->geefAlleKlanten();
       <td><?= $rij['email']; ?></td>
       <td><?= $rij['telefoon']; ?></td>
       <td><?= $rij['adres']; ?></td>
+
       <td><a href="bekijkpagina.php?id=<?= $rij['klantId']; ?>">Bekijk</a></td>
+
+      <td><a href="bekijkpagina.php?id=<?= $rij['klantId']?>">Bekijk</a></td>
+
     </tr>
   <?php endforeach; ?>
 </table>
