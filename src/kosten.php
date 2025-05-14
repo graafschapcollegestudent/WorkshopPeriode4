@@ -1,14 +1,16 @@
 <?php
 include_once 'database.php';
 
-class Kosten extends Database {
+class Kosten extends Database
+{
 
-  public function VoegUrenToe($uren, $uurTarief){
-    if ($uren == "" || $uurTarief == "") {
+  public function VoegUrenToe($uren, $totaalBedrag, $klantId)
+  {
+    if ($uren == "" || $totaalBedrag == "" || $klantId == "") {
       return false;
     } else {
-      $query = "INSERT INTO klusdetails (urenGewerkt, totaalBedrag) VALUES (?, ?);";
-      $params = [$uren, $uurTarief];
+      $query = "INSERT INTO klusdetails (urenGewerkt, totaalBedrag, klantId) VALUES (?, ?, ?);";
+      $params = [$uren, $totaalBedrag, $klantId];
 
       return parent::voerQueryUit($query, $params) > 0;
     }
