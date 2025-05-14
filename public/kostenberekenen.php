@@ -17,7 +17,7 @@ if (isset($_POST["berekenen"]))
     echo $uurTarief;
 }
 
-<?php
+
 include_once '../src/kosten.php';
 $kosten = new Kosten();
 
