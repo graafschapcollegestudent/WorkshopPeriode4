@@ -14,8 +14,8 @@ echo "<tr><th>k.klant</th><th>k.adres</th><th>k.telefoonnummer</th><th>k.e-maila
 foreach ($klantGegevens as $result) {
     $gegevens1 = $result['naam'];
     $gegevens2 = $result['adres'];
-    $gegevens3 = $result['telefoonnummer'];
-    $gegevens4 = $result['e-mailadres'];
+    $gegevens3 = $result['telefoon'];
+    $gegevens4 = $result['email'];
     $gegevens5 = $result['klantId'];
     $gegevens6 = $result['Klus'];
     $gegevens7 = $result['DetailsKlus'];
@@ -36,3 +36,4 @@ foreach ($klantGegevens as $result) {
 echo "</table>";
 ?>
 
+<a href="kostenberekenen.php">test</a>
