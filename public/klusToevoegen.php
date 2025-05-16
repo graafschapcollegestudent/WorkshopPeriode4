@@ -7,8 +7,6 @@ $klant = new Klant();
 $klus = new Klus();
 $klantGegevens = $klant->geefKlantOpId($id);
 
-print_r($klantGegevens);
-
 echo "<h2>{$klantGegevens[0]['naam']}</h2>";
 
 ?>

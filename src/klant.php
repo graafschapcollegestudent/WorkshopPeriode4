@@ -5,35 +5,33 @@ class Klant extends Database
 {
 
   public function geefAlleKlanten()
-  {
-    $query = "SELECT k.klant AS naam, 
-    k.telefoonnummer AS telefoon, 
-    k.adres AS adres, 
-    k.`e-mailadres` AS email, 
-    k.klantId AS klantId,
-    d.DetailsKlus AS DetailsKlus,
-    d.Klus AS Klus
-    FROM klanten AS k
-    LEFT JOIN klusdetails AS d ON d.klantId = k.klantId";
-
-
+{
+    $query = "SELECT
+        k.klant AS naam, 
+        k.telefoonnummer AS telefoon, 
+        k.adres AS adres, 
+        k.`e-mailadres` AS email, 
+        k.klantId AS klantId
+    FROM klanten AS k";
     return parent::voerQueryUit($query);
-  }
+}
   public function geefKlantOpId($id)
   {
     $query = "SELECT 
-        k.klant AS naam,
-        k.adres AS adres,
-        k.telefoonnummer AS telefoon,
-        k.`e-mailadres` AS email,
-        k.klantId AS klantId,
-        d.klus AS klus,
-        d.detailsKlus AS detailsKlus,
-        d.KlusId AS klusId
-    FROM klanten AS k
-    LEFT JOIN klusdetails AS d 
-        ON d.klantId = k.klantId
-    WHERE k.klantId = ?;";
+    k.klant AS naam,
+    k.adres AS adres,
+    k.telefoonnummer AS telefoon,
+    k.`e-mailadres` AS email,
+    k.klantId AS klantId,
+    d.klus AS klus,
+    d.detailsKlus AS detailsKlus,
+    d.KlusId AS klusId,
+    d.totaalBedrag AS totaalBedrag
+FROM klanten AS k
+LEFT JOIN klusdetails AS d 
+    ON d.klantId = k.klantId
+WHERE k.klantId = ?;";
+
 
     $params = [$id];
 

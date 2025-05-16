@@ -1,28 +1,55 @@
-
-<form method="POST">
-    Voorrijkosten: <input type="text" name="voorrijKosten" id=""><br>
-    Aantal uur gewerkt: <input type="text" name="uren" id=""><br>
-    Uurtarief: <input type="text" name="uurTarief" id=""><br>
-    <input type="submit" value="berekenen" name="berekenen">
-</form>
-
 <?php
-
 include_once '../src/kosten.php';
-$kosten = new Kosten();
-if (isset($_POST['berekenen'])) {
-    $uren = $_POST['uren'];
-    $uurTarief = $_POST["uurTarief"];
-    $voorrijKosten = $_POST["voorrijKosten"];
-    $GewerkteUren = $uurTarief * $uren;
-    $totaalBedrag = $GewerkteUren + $voorrijKosten;
-    $klantId = $_GET['id'];
+include_once '../src/klant.php';
 
-    if ($kosten->VoegUrenToe($uren, $totaalBedrag, $klantId)) {
-        header("Location: bekijkpagina.php?id=" . $klantId);
+$kosten = new Kosten();
+$klant = new Klant();
+
+$id = $_GET['id'] ?? null;
+$klusId = $_GET['klusId'] ?? null;
+
+$klantGegevens = $klant->geefKlantOpId($id);
+$klantNaam = $klantGegevens[0]['naam'] ?? '';
+
+// Haal bestaande kosten op
+$kostenGegevens = ($klusId) ? ($kosten->haalKostenOp($klusId)[0] ?? null) : null;
+
+if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
+    $uren = (float) ($_POST['uren'] ?? 0);
+    $uurTarief = (float) ($_POST['uurTarief'] ?? 0);
+    $voorrijKosten = (float) ($_POST['voorrijKosten'] ?? 0);
+    $totaalBedrag = ($uurTarief * $uren) + $voorrijKosten;
+
+    if ($kosten->slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantNaam)) {
+        header("Location: bekijkpagina.php?id=" . urlencode($id));
         exit;
     } else {
         echo "Het toevoegen is niet gelukt";
     }
 }
 ?>
+
+<form method="POST">
+    <label>
+        Klantnaam:
+        <input type="text" name="klantNaam" value="<?= htmlspecialchars($klantNaam) ?>" readonly>
+    </label><br>
+    <label>
+        Voorrijkosten:
+        <input type="text" name="voorrijKosten" value="<?= htmlspecialchars($kostenGegevens['voorrijKosten'] ?? '0') ?>">
+    </label><br>
+    <label>
+        Aantal uur gewerkt:
+        <input type="text" name="uren" value="<?= htmlspecialchars($kostenGegevens['urenGewerkt'] ?? '0') ?>">
+    </label><br>
+    <label>
+        Uurtarief:
+        <input type="text" name="uurTarief" value="<?= htmlspecialchars($kostenGegevens['uurTarief'] ?? '0') ?>">
+    </label><br>
+    <button type="submit" name="berekenen">Berekenen</button>
+</form>
+
+<form action="bekijkpagina.php" method="get" style="margin-top:10px;">
+    <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
+    <button type="submit">Terug naar klantgegevens</button>
+</form>
