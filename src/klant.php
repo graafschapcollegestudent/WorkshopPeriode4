@@ -26,7 +26,8 @@ class Klant extends Database
     d.klus AS klus,
     d.detailsKlus AS detailsKlus,
     d.KlusId AS klusId,
-    d.totaalBedrag AS totaalBedrag
+    d.totaalBedrag AS totaalBedrag,
+    d.Betaald AS betaald
 FROM klanten AS k
 LEFT JOIN klusdetails AS d 
     ON d.klantId = k.klantId
