@@ -5,7 +5,7 @@ $id = $_GET['id'];
 $klant = new Klant();
 
 
-$klantGegevens = $klant->geefAlleKlanten($id);
+$klantGegevens = $klant->geefAlleKlanten();
 
 echo "<h2>Details van de klant:</h2>";
 echo "<table border='1' cellpadding='5' cellspacing='0'>";
