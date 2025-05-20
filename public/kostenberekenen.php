@@ -11,20 +11,21 @@ $klusId = $_GET['klusId'] ?? null;
 $klantGegevens = $klant->geefKlantOpId($id);
 $klantNaam = $klantGegevens[0]['naam'] ?? '';
 
-// Haal bestaande kosten op
+// Haal bestaande kosten op (voor invullen formulier)
 $kostenGegevens = ($klusId) ? ($kosten->haalKostenOp($klusId)[0] ?? null) : null;
 
 if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
-    $uren = (float) ($_POST['uren'] ?? 0);
-    $uurTarief = (float) ($_POST['uurTarief'] ?? 0);
-    $voorrijKosten = (float) ($_POST['voorrijKosten'] ?? 0);
+    $uren = (float) str_replace(',', '.', $_POST['uren'] ?? '0');
+    $uurTarief = (float) str_replace(',', '.', $_POST['uurTarief'] ?? '0');
+    $voorrijKosten = (float) str_replace(',', '.', $_POST['voorrijKosten'] ?? '0');
+
     $totaalBedrag = ($uurTarief * $uren) + $voorrijKosten;
 
     if ($kosten->slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantNaam)) {
         header("Location: bekijkpagina.php?id=" . urlencode($id));
         exit;
     } else {
-        echo "Het toevoegen is niet gelukt";
+        echo "Het opslaan is niet gelukt.";
     }
 }
 ?>
@@ -34,18 +35,22 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
         Klantnaam:
         <input type="text" name="klantNaam" value="<?= htmlspecialchars($klantNaam) ?>" readonly>
     </label><br>
+
     <label>
-        Voorrijkosten:
-        <input type="text" name="voorrijKosten" value="<?= htmlspecialchars($kostenGegevens['voorrijKosten'] ?? '0') ?>">
+        Voorrijkosten: € 
+        <input type="text" name="voorrijKosten" value="<?= htmlspecialchars(str_replace(',', '.', $kostenGegevens['voorrijKosten'] ?? '0')) ?>">
     </label><br>
+
     <label>
-        Aantal uur gewerkt:
-        <input type="text" name="uren" value="<?= htmlspecialchars($kostenGegevens['urenGewerkt'] ?? '0') ?>">
+        Aantal uur gewerkt: €
+        <input type="text" name="uren" value="<?= htmlspecialchars(str_replace(',', '.', $kostenGegevens['urenGewerkt'] ?? '0')) ?>">
     </label><br>
+
     <label>
-        Uurtarief:
-        <input type="text" name="uurTarief" value="<?= htmlspecialchars($kostenGegevens['uurTarief'] ?? '0') ?>">
+        Uurtarief: €
+        <input type="text" name="uurTarief" value="<?= htmlspecialchars(str_replace(',', '.', $kostenGegevens['uurTarief'] ?? '0')) ?>">
     </label><br>
+
     <button type="submit" name="berekenen">Berekenen</button>
 </form>
 

@@ -50,7 +50,10 @@ foreach ($klantGegevens as $klus) {
                 <th>Klus Details</th>
                 <th>Klus bekijken</th>
                 <?php if ($heeftKosten): ?>
-                    <th>Kosten</th>
+                    <th>Voorrijkosten</th>
+                    <th>Uurtarief</th>
+                    <th>Aantal uur</th>
+                    <th>Totale kosten</th>
                 <?php endif; ?>
                 <th>Kosten berekenen</th>
                 <th>Betaald</th>
@@ -62,6 +65,9 @@ foreach ($klantGegevens as $klus) {
                         <td><?= mb_strimwidth($klus['detailsKlus'], 0, 50, '...') ?></td>
                         <td><a href="klusBekijken.php?id=<?= urlencode($klus['klusId']) ?>&klantId=<?= urlencode($klus['klantId']) ?>">Klus bekijken</a></td>
                         <?php if ($heeftKosten): ?>
+                            <td><?= !empty($klus['voorrijkosten']) ? "€ {$klus['voorrijkosten']}" : 'hoi'?></td>
+                            <td><?= !empty($klus['uurTarief']) ? "€ {$klus['uurTarief']}" : ''?></td>
+                            <td><?= !empty($klus['urenGewerkt']) ? "{$klus['urenGewerkt']} uur" : ''?></td>
                             <td><?= !empty($klus['totaalBedrag']) ? "€ {$klus['totaalBedrag']}" : '' ?></td>
                         <?php endif; ?>
                         <td><a href="kostenberekenen.php?id=<?= urlencode($klus['klantId']) ?>&klusId=<?= urlencode($klus['klusId']) ?>">Kosten berekenen</a></td>

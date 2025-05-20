@@ -5,7 +5,7 @@ class Klant extends Database
 {
 
   public function geefAlleKlanten()
-{
+  {
     $query = "SELECT
         k.klant AS naam, 
         k.telefoonnummer AS telefoon, 
@@ -14,26 +14,28 @@ class Klant extends Database
         k.klantId AS klantId
     FROM klanten AS k";
     return parent::voerQueryUit($query);
-}
+  }
   public function geefKlantOpId($id)
   {
     $query = "SELECT 
-    k.klant AS naam,
-    k.adres AS adres,
-    k.telefoonnummer AS telefoon,
-    k.`e-mailadres` AS email,
-    k.klantId AS klantId,
-    d.klus AS klus,
-    d.detailsKlus AS detailsKlus,
-    d.KlusId AS klusId,
-    d.totaalBedrag AS totaalBedrag,
-    d.Betaald AS betaald
-FROM klanten AS k
-LEFT JOIN klusdetails AS d 
-    ON d.klantId = k.klantId
-WHERE k.klantId = ?;";
 
-
+        k.klant AS naam,
+        k.adres AS adres,
+        k.telefoonnummer AS telefoon,
+        k.`e-mailadres` AS email,
+        k.klantId AS klantId,
+        d.klus AS klus,
+        d.detailsKlus AS detailsKlus,
+        d.KlusId AS klusId,
+        d.totaalBedrag AS totaalBedrag,
+        d.urenGewerkt AS urenGewerkt,
+        d.uurTarief AS uurTarief,
+        d.voorrijkosten AS voorrijkosten
+    FROM klanten AS k
+    LEFT JOIN klusdetails AS d 
+        ON d.klantId = k.klantId
+    WHERE k.klantId = ?;";
+    
     $params = [$id];
 
     return parent::voerQueryUit($query, $params);
@@ -49,7 +51,7 @@ WHERE k.klantId = ?;";
       return parent::voerQueryUit($query, $params) > 0;
     }
   }
-  public function geefKlantenOpAdres($zoekterm)
+  public function geefKlantenOpAdresOfNaam($zoekterm)
   {
     $query = "SELECT k.klant AS naam, 
         k.telefoonnummer AS telefoon, 
