@@ -33,5 +33,5 @@ if (isset($_GET['klusToevoegen'])) {
   exit;
 }
 if (isset($_GET['terug'])) {
-  header('Location: bekijkpagina.php?id=' . $klantGegevens[0][' klantId']);
+  header('Location: bekijkpagina.php?id=' . $klantGegevens[0]['klantId']);
 }

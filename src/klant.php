@@ -30,7 +30,8 @@ class Klant extends Database
         d.totaalBedrag AS totaalBedrag,
         d.urenGewerkt AS urenGewerkt,
         d.uurTarief AS uurTarief,
-        d.voorrijkosten AS voorrijkosten
+        d.voorrijkosten AS voorrijkosten,
+        d.Betaald AS Betaald
     FROM klanten AS k
     LEFT JOIN klusdetails AS d 
         ON d.klantId = k.klantId

@@ -71,7 +71,7 @@ foreach ($klantGegevens as $klus) {
                             <td><?= !empty($klus['totaalBedrag']) ? "€ {$klus['totaalBedrag']}" : '' ?></td>
                         <?php endif; ?>
                         <td><a href="kostenberekenen.php?id=<?= urlencode($klus['klantId']) ?>&klusId=<?= urlencode($klus['klusId']) ?>">Kosten berekenen</a></td>
-                        <td><?= ($klus['Betaald'] ?? $klus['betaald'] ?? 0) == 1 ? 'Ja' : 'Nee' ?></td>
+                        <td><?= (isset($klus['Betaald']) && $klus['Betaald'] == 1) ? 'Ja' : 'Nee' ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>

@@ -18,10 +18,12 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
     $uren = (float) str_replace(',', '.', $_POST['uren'] ?? '0');
     $uurTarief = (float) str_replace(',', '.', $_POST['uurTarief'] ?? '0');
     $voorrijKosten = (float) str_replace(',', '.', $_POST['voorrijKosten'] ?? '0');
+    $factuurBetaald = isset($_POST['FactuurBetaald']) ? 1 : 0;
 
     $totaalBedrag = ($uurTarief * $uren) + $voorrijKosten;
 
-    if ($kosten->slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantNaam)) {
+    // Pas deze regel aan zodat Betaald wordt opgeslagen
+    if ($kosten->slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantNaam, $factuurBetaald)) {
         header("Location: bekijkpagina.php?id=" . urlencode($id));
         exit;
     } else {
@@ -37,18 +39,24 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
     </label><br>
 
     <label>
-        Voorrijkosten: € 
+        Voorrijkosten: €
         <input type="text" name="voorrijKosten" value="<?= htmlspecialchars(str_replace(',', '.', $kostenGegevens['voorrijKosten'] ?? '0')) ?>">
     </label><br>
 
     <label>
-        Aantal uur gewerkt: €
+        Aantal uur gewerkt:
         <input type="text" name="uren" value="<?= htmlspecialchars(str_replace(',', '.', $kostenGegevens['urenGewerkt'] ?? '0')) ?>">
     </label><br>
 
     <label>
         Uurtarief: €
         <input type="text" name="uurTarief" value="<?= htmlspecialchars(str_replace(',', '.', $kostenGegevens['uurTarief'] ?? '0')) ?>">
+    </label><br>
+
+    <label>
+        <input type="checkbox" name="FactuurBetaald" value="1"
+            <?php if (!empty($kostenGegevens['Betaald'])) echo 'checked'; ?>>
+        Factuur betaald
     </label><br>
 
     <button type="submit" name="berekenen">Berekenen</button>

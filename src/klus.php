@@ -24,11 +24,11 @@ class Klus extends Database
 
     return $result && count($result) > 0 ? $result[0] : null;
   }
-  public function updateKlus($klusId, $klusTitel, $klusDetail, $factuur)
-  {
-    $query = "UPDATE klusdetails SET klus = ?, DetailsKlus = ?, Betaald = ? WHERE KlusId = ?";
-    $params = [$klusTitel, $klusDetail, $factuur, $klusId];
+  public function updateKlus($klusId, $klusTitel, $klusDetail)
+{
+    $query = "UPDATE klusdetails SET klus = ?, DetailsKlus = ? WHERE KlusId = ?";
+    $params = [$klusTitel, $klusDetail, $klusId];
 
     return parent::voerQueryUit($query, $params) > 0;
-  }
+}
 }

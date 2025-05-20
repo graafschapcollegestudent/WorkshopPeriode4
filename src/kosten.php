@@ -3,8 +3,8 @@ include_once 'database.php';
 
 class Kosten extends Database
 {
-  public function slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantnaam)
-  {
+  public function slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantnaam, $betaald)
+{
     if ($uren === "" || $totaalBedrag === "" || $klusId === "") {
       return false;
     }
@@ -15,11 +15,11 @@ class Kosten extends Database
             totaalBedrag = ?,
             uurTarief = ?,
             voorrijKosten = ?,
-            klant = ?
-        WHERE klusId = ?;
-    ";
+            klant = ?,
+            Betaald = ?
+        WHERE klusId = ?;";
 
-    $params = [$uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klantnaam, $klusId];
+    $params = [$uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klantnaam, $betaald, $klusId];
 
     try {
       $result = parent::voerQueryUit($query, $params);
@@ -28,13 +28,13 @@ class Kosten extends Database
       error_log("Database error: " . $e->getMessage());
       return false;
     }
-  }
+}
 
   public function haalKostenOp($klusId)
-  {
-    $query = "SELECT urenGewerkt, totaalBedrag, uurTarief, voorrijKosten FROM klusdetails WHERE klusId = ?";
+{
+    $query = "SELECT urenGewerkt, totaalBedrag, uurTarief, voorrijKosten, Betaald FROM klusdetails WHERE klusId = ?";
     $params = [$klusId];
 
     return parent::voerQueryUit($query, $params);
-  }
+}
 }
