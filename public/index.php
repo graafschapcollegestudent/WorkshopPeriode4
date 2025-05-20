@@ -8,14 +8,14 @@ if (isset($_POST['zoeken'])) {
     if ($zoekterm == "") {
         $alleKlanten = $klant->geefAlleKlanten();
     } else {
-        $alleKlanten = $klant->geefKlantenOpAdres($zoekterm);
+        $alleKlanten = $klant->geefKlantenOpAdresOfNaam($zoekterm);
     }
 } else {
     $alleKlanten = $klant->geefAlleKlanten();
 }
 ?>
 <form action="" method="POST">
-  Voer een adres in 
+  Voer een naam of adres in: 
   <input type="text" name="invoerAdres" id="invoer">
   <input type="submit" value="Zoeken" name="zoeken">
 </form>
