@@ -18,6 +18,7 @@ class Klant extends Database
   public function geefKlantOpId($id)
   {
     $query = "SELECT 
+
         k.klant AS naam,
         k.adres AS adres,
         k.telefoonnummer AS telefoon,
@@ -34,8 +35,7 @@ class Klant extends Database
     LEFT JOIN klusdetails AS d 
         ON d.klantId = k.klantId
     WHERE k.klantId = ?;";
-
-
+    
     $params = [$id];
 
     return parent::voerQueryUit($query, $params);
@@ -62,5 +62,8 @@ class Klant extends Database
         WHERE k.adres LIKE ? OR k.klant LIKE ?;";
     $params = ["%{$zoekterm}%", "%{$zoekterm}%"];
     return parent::voerQueryUit($query, $params);
+  }
+  public function voegAdresToe($klantid, $adres){
+    
   }
 }

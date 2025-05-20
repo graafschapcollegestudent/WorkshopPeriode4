@@ -15,6 +15,7 @@ foreach ($klantGegevens as $klus) {
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -55,6 +56,7 @@ foreach ($klantGegevens as $klus) {
                     <th>Totale kosten</th>
                 <?php endif; ?>
                 <th>Kosten berekenen</th>
+                <th>Betaald</th>
             </tr>
             <?php foreach ($klantGegevens as $klus): ?>
                 <?php if ($klus['klus'] !== null): ?>
@@ -69,6 +71,7 @@ foreach ($klantGegevens as $klus) {
                             <td><?= !empty($klus['totaalBedrag']) ? "€ {$klus['totaalBedrag']}" : '' ?></td>
                         <?php endif; ?>
                         <td><a href="kostenberekenen.php?id=<?= urlencode($klus['klantId']) ?>&klusId=<?= urlencode($klus['klusId']) ?>">Kosten berekenen</a></td>
+                        <td><?= ($klus['Betaald'] ?? $klus['betaald'] ?? 0) == 1 ? 'Ja' : 'Nee' ?></td>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -80,7 +83,12 @@ foreach ($klantGegevens as $klus) {
     <form action="klusToevoegen.php" method="get">
         <input type="hidden" name="id" value="<?= $klantGegevens[0]['klantId'] ?>">
         <input type="submit" value="Klus Toevoegen">
-    </form>
+</form>
+    <form method="post" action="updateAdres.php">
+    <input type="hidden" name="klantId" value="<?= $klantGegevens[0]['klantId'] ?>">
+    <input type="text" name="nieuwAdres" placeholder="Nieuw adres" required>
+    <input type="submit" value="Adres bijwerken">
+</form>
 
     <form action="index.php">
         <input type="submit" value="Terug naar overzicht">
