@@ -17,12 +17,15 @@
         <br>
         <input type="text" name="adres" id="adres" placeholder="Adres" required>
         <br>
+        <input type="text" name="opmerking" id="opmerking" placeholder="Opmerking">
+        <br>
         <input type="submit" value="Toevoegen" name="submit">
     </form>
 </body>
 </html>
 
 <?php
+include_once '../src/kosten.php';
 include_once '../src/klant.php';
 $nieuweKlant = new Klant();
 
@@ -31,8 +34,9 @@ if (isset($_POST['submit'])) {
     $adres = $_POST['adres'];
     $telefoon = $_POST['telefoon'];
     $email = $_POST['email'];
+    $opmerking = $_POST['opmerking'];
 
-    if ($nieuweKlant->voegKlantToe($naam, $adres, $telefoon, $email)) {
+    if ($nieuweKlant->voegKlantToe($naam, $adres, $telefoon, $email, $opmerking)) {
         header('Location: index.php');
     } else {
         echo "het toevoegen is niet gelukt";
