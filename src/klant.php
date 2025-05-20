@@ -60,4 +60,7 @@ WHERE k.klantId = ?;";
     $params = ["%{$zoekterm}%", "%{$zoekterm}%"];
     return parent::voerQueryUit($query, $params);
   }
+  public function voegAdresToe($klantid, $adres){
+    
+  }
 }

@@ -74,7 +74,12 @@ foreach ($klantGegevens as $klus) {
     <form action="klusToevoegen.php" method="get">
         <input type="hidden" name="id" value="<?= $klantGegevens[0]['klantId'] ?>">
         <input type="submit" value="Klus Toevoegen">
-    </form>
+</form>
+    <form method="post" action="updateAdres.php">
+    <input type="hidden" name="klantId" value="<?= $klantGegevens[0]['klantId'] ?>">
+    <input type="text" name="nieuwAdres" placeholder="Nieuw adres" required>
+    <input type="submit" value="Adres bijwerken">
+</form>
 
     <form action="index.php">
         <input type="submit" value="Terug naar overzicht">
