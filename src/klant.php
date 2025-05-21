@@ -31,7 +31,8 @@ class Klant extends Database
         d.urenGewerkt AS urenGewerkt,
         d.uurTarief AS uurTarief,
         d.voorrijkosten AS voorrijkosten,
-        d.Betaald AS Betaald
+        d.Betaald AS Betaald,
+        d.gefactureerd AS gefactureerd
     FROM klanten AS k
     LEFT JOIN klusdetails AS d 
         ON d.klantId = k.klantId
@@ -41,6 +42,11 @@ class Klant extends Database
 
     return parent::voerQueryUit($query, $params);
   }
+  public function markeerKlusAlsGefactureerd($klusId) {
+    $query = "UPDATE klusdetails SET gefactureerd = 1 WHERE klusId = ?";
+    $params = [$klusId];
+    return parent::voerQueryUit($query, $params) > 0;
+}
   public function voegKlantToe($naam, $adres, $telefoon, $email, $opmerking)
   {
     if ($naam == "" || $adres == "" || $telefoon == "" || $email == "") {
