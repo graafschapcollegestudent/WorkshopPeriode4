@@ -4,6 +4,7 @@ require_once('../src/klant.php');
 $id = $_GET['id'] ?? null;
 $klant = new Klant();
 $klantGegevens = $klant->geefKlantOpId($id);
+$actiefAdres = $klant->geefActiefAdres($id);
 
 $heeftKlus = false;
 $heeftKosten = false;
@@ -35,7 +36,7 @@ foreach ($klantGegevens as $klus) {
         </tr>
         <tr>
             <td><?= $klantGegevens[0]['naam'] ?></td>
-            <td><?= $klantGegevens[0]['adres'] ?></td>
+        <td><?= htmlspecialchars($actiefAdres) ?></td>
             <td><?= $klantGegevens[0]['telefoon'] ?></td>
             <td><?= $klantGegevens[0]['email'] ?></td>
             <td><?= $klantGegevens[0]['klantId'] ?></td>
