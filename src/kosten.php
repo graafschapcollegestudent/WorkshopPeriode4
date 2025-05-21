@@ -3,7 +3,7 @@ include_once 'database.php';
 
 class Kosten extends Database
 {
-  public function slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantnaam, $betaald)
+  public function slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantnaam)
 {
     if ($uren === "" || $totaalBedrag === "" || $klusId === "") {
       return false;
@@ -16,10 +16,9 @@ class Kosten extends Database
             uurTarief = ?,
             voorrijKosten = ?,
             klant = ?,
-            Betaald = ?
         WHERE klusId = ?;";
 
-    $params = [$uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klantnaam, $betaald, $klusId];
+    $params = [$uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klantnaam, $klusId];
 
     try {
       $result = parent::voerQueryUit($query, $params);

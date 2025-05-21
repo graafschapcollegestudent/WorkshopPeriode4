@@ -20,10 +20,12 @@ foreach ($klantGegevens as $klus) {
 ?>
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <title>Details van de klant</title>
 </head>
+
 <body>
     <h2>Details van de klant:</h2>
     <table border="1" cellpadding="5" cellspacing="0">
@@ -57,7 +59,10 @@ foreach ($klantGegevens as $klus) {
                     <th>Totale kosten</th>
                 <?php endif; ?>
                 <th>Kosten berekenen</th>
-                <th>Betaald</th>
+                <th>Facturatie</th>
+                <?php if ($klus['gefactureerd'] == 1) : ?>
+                    <th>Betaald</th>
+                <?php endif; ?>
             </tr>
             <?php foreach ($klantGegevens as $klus): ?>
                 <?php if ($klus['klus'] !== null): ?>
@@ -66,13 +71,22 @@ foreach ($klantGegevens as $klus) {
                         <td><?= mb_strimwidth($klus['detailsKlus'], 0, 50, '...') ?></td>
                         <td><a href="klusBekijken.php?id=<?= urlencode($klus['klusId']) ?>&klantId=<?= urlencode($klus['klantId']) ?>">Klus bekijken</a></td>
                         <?php if ($heeftKosten): ?>
-                            <td><?= !empty($klus['voorrijkosten']) ? "€ {$klus['voorrijkosten']}" : 'hoi'?></td>
-                            <td><?= !empty($klus['uurTarief']) ? "€ {$klus['uurTarief']}" : ''?></td>
-                            <td><?= !empty($klus['urenGewerkt']) ? "{$klus['urenGewerkt']} uur" : ''?></td>
+                            <td><?= !empty($klus['voorrijkosten']) ? "€ {$klus['voorrijkosten']}" : 'hoi' ?></td>
+                            <td><?= !empty($klus['uurTarief']) ? "€ {$klus['uurTarief']}" : '' ?></td>
+                            <td><?= !empty($klus['urenGewerkt']) ? "{$klus['urenGewerkt']} uur" : '' ?></td>
                             <td><?= !empty($klus['totaalBedrag']) ? "€ {$klus['totaalBedrag']}" : '' ?></td>
                         <?php endif; ?>
                         <td><a href="kostenberekenen.php?id=<?= urlencode($klus['klantId']) ?>&klusId=<?= urlencode($klus['klusId']) ?>">Kosten berekenen</a></td>
-                        <td><?= (isset($klus['Betaald']) && $klus['Betaald'] == 1) ? 'Ja' : 'Nee' ?></td>
+                        <td>
+                            <?php if (isset($klus['gefactureerd']) && $klus['gefactureerd'] == 1): ?>
+                                Gefactureerd
+                                <?php else: ?>
+                                    <a href="factuurAanmaken.php?id=<?= urlencode($klus['klantId']) ?>&klusId=<?= urlencode($klus['klusId']) ?>">Factuur maken</a>
+                                    <?php endif; ?>
+                                </td>
+                                <?php if (isset($klus['gefactureerd']) && $klus['gefactureerd'] == 1): ?>
+                                    <td><input type="checkbox" name="betaald"></td>
+                                <?php endif; ?>
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -80,24 +94,22 @@ foreach ($klantGegevens as $klus) {
     <?php endif; ?>
 
     <br>
-                            
+
     <form action="klusToevoegen.php" method="get">
         <input type="hidden" name="id" value="<?= $klantGegevens[0]['klantId'] ?>">
         <input type="submit" value="Klus Toevoegen">
-</form>
+    </form>
     <form method="post" action="updateAdres.php">
-    <input type="hidden" name="klantId" value="<?= $klantGegevens[0]['klantId'] ?>">
-    <input type="text" name="nieuwAdres" placeholder="Nieuw adres" required>
-    <input type="submit" value="Adres bijwerken">
-</form>
+        <input type="hidden" name="klantId" value="<?= $klantGegevens[0]['klantId'] ?>">
+        <input type="text" name="nieuwAdres" placeholder="Nieuw adres" required>
+        <input type="submit" value="Adres bijwerken">
+    </form>
 
     <form action="index.php">
         <input type="submit" value="Terug naar overzicht">
     </form>
 </body>
-</html>
 
-<?php
 echo $datum = date("d-m-Y")  . "<br>";
 echo date('d-m-Y', strtotime('+1 week'));
 ?>
@@ -126,3 +138,4 @@ echo date('d-m-Y', strtotime('+1 week'));
         echo $endDate = $_POST["endDate"] . "<br>";
         
     }
+
