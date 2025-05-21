@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 20 mei 2025 om 11:27
+-- Gegenereerd op: 21 mei 2025 om 09:52
 -- Serverversie: 5.7.17
--- PHP-versie: 8.2.9
+-- PHP-versie: 8.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -76,16 +76,38 @@ CREATE TABLE `klusdetails` (
   `totaalBedrag` float(65,2) DEFAULT NULL,
   `uurTarief` float(15,2) DEFAULT NULL,
   `voorrijkosten` float(20,2) DEFAULT NULL,
-  `Betaald` tinyint(1) NOT NULL,
-  `adresId` int(11) DEFAULT NULL
+  `Betaald` tinyint(1) DEFAULT NULL,
+  `gefactureerd` tinyint(1) NOT NULL,
+  `adresId` int(11) DEFAULT NULL,
+  `VooraadId` int(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `klusdetails`
 --
 
-INSERT INTO `klusdetails` (`KlusId`, `klant`, `Klus`, `DetailsKlus`, `klantId`, `urenGewerkt`, `totaalBedrag`, `uurTarief`, `voorrijkosten`, `Betaald`, `adresId`) VALUES
-(30, 'Lucas Bussink', 'Pizzaoven gebouw', 'mooie pizzaoven met echte stenen', 6, 5.00, 106.00, 14.00, 36.00, 0, NULL);
+INSERT INTO `klusdetails` (`KlusId`, `klant`, `Klus`, `DetailsKlus`, `klantId`, `urenGewerkt`, `totaalBedrag`, `uurTarief`, `voorrijkosten`, `Betaald`, `gefactureerd`, `adresId`, `VooraadId`) VALUES
+(30, 'Lucas Bussink', 'Pizzaoven gebouw', 'mooie pizzaoven met echte stenen', 6, 5.00, 761.00, 145.00, 36.00, 1, 0, NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `vooraad`
+--
+
+CREATE TABLE `vooraad` (
+  `VooraadId` int(11) NOT NULL,
+  `Naam` varchar(100) DEFAULT NULL,
+  `Aantal` int(20) DEFAULT NULL,
+  `Maat` float(20,2) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `vooraad`
+--
+
+INSERT INTO `vooraad` (`VooraadId`, `Naam`, `Aantal`, `Maat`) VALUES
+(1, 'Balk', 12, 12.00);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -110,6 +132,12 @@ ALTER TABLE `klusdetails`
   ADD PRIMARY KEY (`KlusId`);
 
 --
+-- Indexen voor tabel `vooraad`
+--
+ALTER TABLE `vooraad`
+  ADD PRIMARY KEY (`VooraadId`);
+
+--
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
@@ -129,7 +157,13 @@ ALTER TABLE `klant_adressen`
 -- AUTO_INCREMENT voor een tabel `klusdetails`
 --
 ALTER TABLE `klusdetails`
-  MODIFY `KlusId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `KlusId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT voor een tabel `vooraad`
+--
+ALTER TABLE `vooraad`
+  MODIFY `VooraadId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
