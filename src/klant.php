@@ -7,12 +7,14 @@ class Klant extends Database
   public function geefAlleKlanten()
   {
     $query = "SELECT
-        k.klant AS naam, 
-        k.telefoonnummer AS telefoon, 
-        k.adres AS adres, 
-        k.`e-mailadres` AS email, 
-        k.klantId AS klantId
-    FROM klanten AS k";
+    k.klant AS naam, 
+    k.telefoonnummer AS telefoon, 
+    a.adres AS adres,
+    k.`e-mailadres` AS email, 
+    k.klantId AS klantId
+FROM klanten AS k
+LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId
+AND a.actief = 1";
     return parent::voerQueryUit($query);
   }
   public function geefKlantOpId($id)
@@ -66,11 +68,25 @@ class Klant extends Database
         k.`e-mailadres` AS email, 
         k.klantId AS klantId
         FROM klanten AS k
-        WHERE k.adres LIKE ? OR k.klant LIKE ?;";
+        LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId
+        WHERE (a.adres LIKE ? AND a.actief = 1) OR k.klant LIKE ?";
     $params = ["%{$zoekterm}%", "%{$zoekterm}%"];
     return parent::voerQueryUit($query, $params);
   }
   public function voegAdresToe($klantid, $adres){
-    
+    $query = "INSERT INTO klant_adressen (adres, klantId, actief) VALUES (?, ?, 1);";
+    return parent::voerQueryUit($query, [$adres, $klantid]);
+  }
+  public function deactiveerHuidigeAdres($klantid){
+    $query = "UPDATE klant_adressen SET actief = 0 WHERE klantId = ? ";
+    return parent::voerQueryUit($query, [$klantid]);
+  }
+  public function geefActiefAdres($klantid){
+    $query="SELECT adres FROM klant_adressen WHERE klantId=? AND actief = 1 LIMIT 1";
+    return parent::voerQueryUit($query, [$klantid])[0]['adres'] ?? '';
+  }
+  public function geefAdressenVanKlant($klantid){
+    $query="SELECT adres, actief, datumToegevoegd FROM klant_adressen WHERE klantId=?";
+    return parent::voerQueryUit($query, [$klantid]);
   }
 }

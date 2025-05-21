@@ -27,7 +27,7 @@ if (isset($_GET['klusToevoegen'])) {
   $klusDetail = $_GET['klusBeschrijving'];
   $klantId = $klantGegevens[0]['klantId'];
   $klusTitel = $_GET['klusTitel'];
-  $klus->voegKlusToe($klantId, $klusTitel, $klusDetail);
+  $klus->voegKlusToe($klantId, $klusTitel, $klusDetail, $adresId);
 
   header('Location: bekijkpagina.php?id=' . $klantId);
   exit;

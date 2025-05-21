@@ -4,6 +4,7 @@ require_once('../src/klant.php');
 $id = $_GET['id'] ?? null;
 $klant = new Klant();
 $klantGegevens = $klant->geefKlantOpId($id);
+$actiefAdres = $klant->geefActiefAdres($id);
 
 $heeftKlus = false;
 $heeftKosten = false;
@@ -37,7 +38,7 @@ foreach ($klantGegevens as $klus) {
         </tr>
         <tr>
             <td><?= $klantGegevens[0]['naam'] ?></td>
-            <td><?= $klantGegevens[0]['adres'] ?></td>
+        <td><?= htmlspecialchars($actiefAdres) ?></td>
             <td><?= $klantGegevens[0]['telefoon'] ?></td>
             <td><?= $klantGegevens[0]['email'] ?></td>
             <td><?= $klantGegevens[0]['klantId'] ?></td>
@@ -109,4 +110,32 @@ foreach ($klantGegevens as $klus) {
     </form>
 </body>
 
-</html>
+echo $datum = date("d-m-Y")  . "<br>";
+echo date('d-m-Y', strtotime('+1 week'));
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    
+    <h1>Kies een periode</h1>
+        <form method="POST">
+            Start datum: <input type="date" name="startDate" required>
+        <br><br>
+            Eind datum: <input type="date" name="endDate" required>
+        <br><br>
+
+        <button name="calculeren" type="submit">Calculeren</button>
+    </form>
+
+    <?php
+    if (isset($_POST['calculeren']))
+    {
+        echo $startDate = $_POST["startDate"] . "<br>";
+        echo $endDate = $_POST["endDate"] . "<br>";
+        
+    }
+
