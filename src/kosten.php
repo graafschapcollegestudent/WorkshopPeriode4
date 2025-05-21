@@ -3,16 +3,38 @@ include_once 'database.php';
 
 class Kosten extends Database
 {
-
-  public function VoegUrenToe($uren, $totaalBedrag, $klantId)
-  {
-    if ($uren == "" || $totaalBedrag == "" || $klantId == "") {
+  public function slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantnaam, $betaald)
+{
+    if ($uren === "" || $totaalBedrag === "" || $klusId === "") {
       return false;
-    } else {
-      $query = "INSERT INTO klusdetails (urenGewerkt, totaalBedrag, klantId) VALUES (?, ?, ?);";
-      $params = [$uren, $totaalBedrag, $klantId];
-
-      return parent::voerQueryUit($query, $params) > 0;
     }
-  }
+
+    $query = "UPDATE klusdetails 
+        SET 
+            urenGewerkt = ?, 
+            totaalBedrag = ?,
+            uurTarief = ?,
+            voorrijKosten = ?,
+            klant = ?,
+            Betaald = ?
+        WHERE klusId = ?;";
+
+    $params = [$uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klantnaam, $betaald, $klusId];
+
+    try {
+      $result = parent::voerQueryUit($query, $params);
+      return $result > 0;
+    } catch (Exception $e) {
+      error_log("Database error: " . $e->getMessage());
+      return false;
+    }
+}
+
+  public function haalKostenOp($klusId)
+{
+    $query = "SELECT urenGewerkt, totaalBedrag, uurTarief, voorrijKosten, Betaald FROM klusdetails WHERE klusId = ?";
+    $params = [$klusId];
+
+    return parent::voerQueryUit($query, $params);
+}
 }
