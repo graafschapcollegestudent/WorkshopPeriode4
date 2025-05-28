@@ -7,13 +7,15 @@ class Klant extends Database
   public function geefAlleKlanten()
 {
     $query = "SELECT
-        k.klant AS naam, 
-        k.telefoonnummer AS telefoon, 
-        k.adres AS adres,
-        k.`e-mailadres` AS email, 
-        k.klantId AS klantId
-    FROM klanten AS k
-    LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId";
+    k.klant AS naam, 
+    k.telefoonnummer AS telefoon, 
+    -- Straks a.adres ipv k.adres
+    k.adres AS adres,
+    k.`e-mailadres` AS email, 
+    k.klantId AS klantId
+FROM klanten AS k
+-- LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId
+-- AND a.actief = 1";
     return parent::voerQueryUit($query);
 }
   public function geefKlantOpId($id)
