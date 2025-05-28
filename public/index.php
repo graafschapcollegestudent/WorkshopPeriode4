@@ -33,10 +33,10 @@ if (isset($_POST['zoeken'])) {
   
   foreach ($alleKlanten as $rij): ?>
     <tr>
-      <td><?= htmlspecialchars($rij['naam']); ?></td>
-      <td><?= htmlspecialchars($rij['email']); ?></td>
-      <td><?= htmlspecialchars($rij['telefoon']); ?></td>
-      <td><?= htmlspecialchars($rij['adres']); ?></td>
+      <td><?= $rij['naam']; ?></td>
+      <td><?= $rij['email']; ?></td>
+      <td><?= $rij['telefoon']; ?></td>
+      <td><?= $rij['adres']; ?></td>
       <td><a href="bekijkpagina.php?id=<?= urlencode($rij['klantId']); ?>">Bekijk</a></td>
     </tr>
   <?php endforeach; ?>
