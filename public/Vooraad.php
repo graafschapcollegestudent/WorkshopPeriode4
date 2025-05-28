@@ -20,3 +20,7 @@ $vooraadGegevens = $vooraad->geefAlleVooraden();
         </tr>
     <?php endforeach; ?>
 </table>
+<br>
+<form action="VooraadToevoegen.php">
+  <input type="submit" value="Vooraad Toevoegen">
+</form>
