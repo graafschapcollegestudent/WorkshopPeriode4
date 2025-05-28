@@ -36,7 +36,7 @@ if (isset($_POST['zoeken'])) {
       <td><?= htmlspecialchars($rij['naam']); ?></td>
       <td><?= htmlspecialchars($rij['email']); ?></td>
       <td><?= htmlspecialchars($rij['telefoon']); ?></td>
-      <td><?= htmlspecialchars($rij['adres']); ?></td>
+      <td><?= htmlspecialchars($rij['adres'] ?? ''); ?></td>
       <td><a href="bekijkpagina.php?id=<?= urlencode($rij['klantId']); ?>">Bekijk</a></td>
     </tr>
   <?php endforeach; ?>

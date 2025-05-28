@@ -19,7 +19,7 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
     $uurTarief = (float) str_replace(',', '.', $_POST['uurTarief'] ?? '0');
     $voorrijKosten = (float) str_replace(',', '.', $_POST['voorrijKosten'] ?? '0');
 
-    $totaalBedrag = ($uurTarief * $uren) + $voorrijKosten;
+    $totaalBedrag = (float)($uurTarief * $uren) + $voorrijKosten;
 
     // Pas deze regel aan zodat Betaald wordt opgeslagen
     if ($kosten->slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantNaam)) {

@@ -5,7 +5,7 @@ class Kosten extends Database
 {
   public function slaKostenOp($uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klusId, $klantnaam)
 {
-    if ($uren === "" || $totaalBedrag === "" || $klusId === "") {
+    if ($uren == "" || $totaalBedrag == "" || $klusId == "") {
       return false;
     }
 
@@ -15,14 +15,13 @@ class Kosten extends Database
             totaalBedrag = ?,
             uurTarief = ?,
             voorrijKosten = ?,
-            klant = ?,
+            klant = ?
         WHERE klusId = ?;";
 
     $params = [$uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klantnaam, $klusId];
 
     try {
-      $result = parent::voerQueryUit($query, $params);
-      return $result > 0;
+      return parent::voerQueryUit($query, $params) > 0;
     } catch (Exception $e) {
       error_log("Database error: " . $e->getMessage());
       return false;

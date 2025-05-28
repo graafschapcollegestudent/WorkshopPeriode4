@@ -5,18 +5,17 @@ class Klant extends Database
 {
 
   public function geefAlleKlanten()
-  {
+{
     $query = "SELECT
-    k.klant AS naam, 
-    k.telefoonnummer AS telefoon, 
-    a.adres AS adres,
-    k.`e-mailadres` AS email, 
-    k.klantId AS klantId
-FROM klanten AS k
-LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId
-AND a.actief = 1";
+        k.klant AS naam, 
+        k.telefoonnummer AS telefoon, 
+        k.adres AS adres,
+        k.`e-mailadres` AS email, 
+        k.klantId AS klantId
+    FROM klanten AS k
+    LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId";
     return parent::voerQueryUit($query);
-  }
+}
   public function geefKlantOpId($id)
   {
     $query = "SELECT 
@@ -89,4 +88,9 @@ AND a.actief = 1";
     $query="SELECT adres, actief, datumToegevoegd FROM klant_adressen WHERE klantId=?";
     return parent::voerQueryUit($query, [$klantid]);
   }
+  public function updateBetaaldStatus($klusId, $betaald) {
+    $query = "UPDATE klusdetails SET Betaald = ? WHERE klusId = ?";
+    $params = [$betaald, $klusId];
+    return parent::voerQueryUit($query, $params) > 0;
+}
 }
