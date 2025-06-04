@@ -15,7 +15,7 @@ class Kosten extends Database
             totaalBedrag = ?,
             uurTarief = ?,
             voorrijKosten = ?,
-            klant = ?,
+            klant = ?
         WHERE klusId = ?;";
 
     $params = [$uren, $totaalBedrag, $uurTarief, $voorrijKosten, $klantnaam, $klusId];

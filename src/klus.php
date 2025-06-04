@@ -3,10 +3,10 @@ include_once 'database.php';
 
 class Klus extends Database
 {
-  public function voegKlusToe($klantId, $klusTitel, $klusDetail, $adresId)
+  public function voegKlusToe($klant, $klantId, $klusTitel, $klusDetail, $adresId)
   {
-    $query = "INSERT INTO klusdetails (DetailsKlus, klantId, klus, adresId) VALUES (?,?,?,?);";
-    $params = [$klusDetail, $klantId, $klusTitel, $adresId];
+    $query = "INSERT INTO klusdetails (klant, DetailsKlus, klantId, klus, adresId) VALUES (?,?,?,?,?);";
+    $params = [$klant, $klusDetail, $klantId, $klusTitel, $adresId];
 
     return parent::voerQueryUit($query, $params) > 0;
   }
