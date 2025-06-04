@@ -10,13 +10,11 @@ $vooraadGegevens = $vooraad->geefAlleVooraden();
     <tr>
         <th>Naam</th>
         <th>Aantal</th>
-        <th>Maat</th>
     </tr>
     <?php foreach ($vooraadGegevens as $vooraaden): ?>
         <tr>
             <td><?= htmlspecialchars($vooraaden['naam']) ?></td>
             <td><?= htmlspecialchars($vooraaden['aantal']) ?></td>
-            <td><?= htmlspecialchars($vooraaden['maat']) ?>cm</td>
         </tr>
     <?php endforeach; ?>
 </table>
