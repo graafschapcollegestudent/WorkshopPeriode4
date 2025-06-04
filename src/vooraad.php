@@ -7,8 +7,7 @@ class Vooraad extends Database
     {
         $query = "SELECT
         v.Naam AS naam, 
-        v.Aantal AS aantal, 
-        v.Maat AS maat
+        v.Aantal AS aantal
     FROM vooraad AS v";
         return parent::voerQueryUit($query);
     }
@@ -40,10 +39,10 @@ class Vooraad extends Database
     //     }
     // }
 
-    public function voegVooraadToe($naam, $aantal, $maat)
+    public function voegVooraadToe($naam, $aantal)
     {
-        $query = "INSERT INTO vooraad (Naam, Aantal, Maat) VALUES (?,?,?);";
-        $params = [$naam, $aantal, $maat];
+        $query = "INSERT INTO vooraad (Naam, Aantal, Maat) VALUES (?,?);";
+        $params = [$naam, $aantal];
 
         return parent::voerQueryUit($query, $params) > 0;
     }
