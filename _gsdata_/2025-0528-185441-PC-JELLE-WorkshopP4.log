@@ -1,0 +1,34 @@
+2025-05-28 18:54:44: == Sync Started by User Command
+2025-05-28 18:54:44: ConnectCloned connected to file:///D:/PHP/WorkshopP4
+2025-05-28 18:54:44: ConnectCloned connected to file:///D:/PHP/WorkshopP4
+2025-05-28 18:54:44: ConnectCloned connected to file:///D:/PHP/WorkshopP4
+2025-05-28 18:54:44: ConnectCloned connected to file:///D:/school/2024-2025/WorkshopPeriode4
+2025-05-28 18:54:44: ConnectCloned connected to file:///D:/school/2024-2025/WorkshopPeriode4
+2025-05-28 18:54:44: ConnectCloned connected to file:///D:/school/2024-2025/WorkshopPeriode4
+2025-05-28 18:54:44: Create Folder D:/PHP/WorkshopP4/config
+2025-05-28 18:54:44: Create Folder D:/PHP/WorkshopP4/public
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/bekijkpagina.php' -> 'D:/PHP/WorkshopP4/public/bekijkpagina.php' (5,243)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/package-lock.json' -> 'D:/PHP/WorkshopP4/package-lock.json' (101)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/config/config.php' -> 'D:/PHP/WorkshopP4/config/config.php' (156)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/index.php' -> 'D:/PHP/WorkshopP4/public/index.php' (1,273)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/README.md' -> 'D:/PHP/WorkshopP4/README.md' (661)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/klusToevoegen.php' -> 'D:/PHP/WorkshopP4/public/klusToevoegen.php' (1,070)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/kostenberekenen.php' -> 'D:/PHP/WorkshopP4/public/kostenberekenen.php' (2,172)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/klusBekijken.php' -> 'D:/PHP/WorkshopP4/public/klusBekijken.php' (1,279)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/updateAdres.php' -> 'D:/PHP/WorkshopP4/public/updateAdres.php' (363)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/toevoegen.php' -> 'D:/PHP/WorkshopP4/public/toevoegen.php' (1,477)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/Vooraad.php' -> 'D:/PHP/WorkshopP4/public/Vooraad.php' (717)
+2025-05-28 18:54:44: Close Modified Folder (mod-time, acl): /config
+2025-05-28 18:54:44: Create Folder D:/PHP/WorkshopP4/src
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/factuurAanmaken.php' -> 'D:/PHP/WorkshopP4/public/factuurAanmaken.php' (1,219)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/public/VooraadToevoegen.php' -> 'D:/PHP/WorkshopP4/public/VooraadToevoegen.php' (993)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/src/klant.php' -> 'D:/PHP/WorkshopP4/src/klant.php' (3,139)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/src/klus.php' -> 'D:/PHP/WorkshopP4/src/klus.php' (1,225)
+2025-05-28 18:54:44: Close Modified Folder (mod-time, acl): /public
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/src/database.php' -> 'D:/PHP/WorkshopP4/src/database.php' (948)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/src/kosten.php' -> 'D:/PHP/WorkshopP4/src/kosten.php' (1,053)
+2025-05-28 18:54:44: Copy New 'D:/school/2024-2025/WorkshopPeriode4/src/vooraad.php' -> 'D:/PHP/WorkshopP4/src/vooraad.php' (1,392)
+2025-05-28 18:54:44: Close Modified Folder (mod-time, acl): /src
+2025-05-28 18:54:44: Save State File D:/PHP/WorkshopP4/_gsdata_/_file_state_v4._gs
+2025-05-28 18:54:44: Save State File D:/school/2024-2025/WorkshopPeriode4/_gsdata_/_file_state_v4._gs
+2025-05-28 18:54:44: == Sync Complete. Time: 00:00:00, Speed: 0.00/s, OK: 21, Errors: 0

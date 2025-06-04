@@ -32,6 +32,31 @@ foreach ($klantGegevens as $klus) {
     }
 }
 
+// Opslaan van Betaald-status
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['betaaldOpslaan'])) {
+    $klusId = $_POST['klusId'];
+    $betaald = isset($_POST['betaald']) ? 1 : 0;
+    $klant->updateBetaaldStatus($klusId, $betaald);
+    header("Location: bekijkpagina.php?id=" . urlencode($id));
+    exit;
+}
+
+$nietGefactureerd = [];
+$gefactureerd = [];
+$betaald = [];
+
+foreach ($klantGegevens as $klus) {
+    if ($klus['klus'] !== null) {
+        if (!empty($klus['gefactureerd']) && !empty($klus['Betaald'])) {
+            $betaald[] = $klus;
+        } elseif (!empty($klus['gefactureerd'])) {
+            $gefactureerd[] = $klus;
+        } else {
+            $nietGefactureerd[] = $klus;
+        }
+    }
+}
+
 $heeftKlus = false;
 $heeftKosten = false;
 foreach ($klantGegevens as $klus) {
@@ -213,4 +238,32 @@ foreach ($klantGegevens as $klus) {
     </form>
 </body>
 
-</html>
+echo $datum = date("d-m-Y")  . "<br>";
+echo date('d-m-Y', strtotime('+1 week'));
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    
+    <h1>Kies een periode</h1>
+        <form method="POST">
+            Start datum: <input type="date" name="startDate" required>
+        <br><br>
+            Eind datum: <input type="date" name="endDate" required>
+        <br><br>
+
+        <button name="calculeren" type="submit">Calculeren</button>
+    </form>
+
+    <?php
+    if (isset($_POST['calculeren']))
+    {
+        echo $startDate = $_POST["startDate"] . "<br>";
+        echo $endDate = $_POST["endDate"] . "<br>";
+        
+    }
+
