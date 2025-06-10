@@ -7,11 +7,9 @@
 </head>
 <body>
     <form action="" method="post">
-        <input type="text" name="Naam" id="naam" placeholder="Naam" required>
+        <label for="">Product Naam  </label><input type="text" name="Naam" id="naam" placeholder="Naam" required>
         <br>
-        <input type="text" name="Aantal" id="aantal" placeholder="Aantal" required>
-        <br>
-        <input type="text" name="Maat" id="maat" placeholder="Maat" required>
+        <label for="">Product Aantal  </label><input type="text" name="Aantal" id="aantal" placeholder="Aantal" required>
         <br>
         <input type="submit" value="Toevoegen" name="submit">
     </form>
@@ -25,9 +23,8 @@ $nieuweVooraad = new Vooraad();
 if (isset($_POST['submit'])) {
     $naam = $_POST['Naam'];
     $aantal = $_POST['Aantal'];
-    $maat = $_POST['Maat'];
 
-    if ($nieuweVooraad->voegVooraadToe($naam, $aantal, $maat)) {
+    if ($nieuweVooraad->voegVooraadToe($naam, $aantal)) {
         header('Location: Vooraad.php');
     } else {
         echo "het toevoegen is niet gelukt";
