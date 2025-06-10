@@ -237,7 +237,7 @@ foreach ($klantGegevens as $klus) {
         <input type="submit" value="Terug naar overzicht">
     </form>
 </body>
-
+<?php
 echo $datum = date("d-m-Y")  . "<br>";
 echo date('d-m-Y', strtotime('+1 week'));
 ?>

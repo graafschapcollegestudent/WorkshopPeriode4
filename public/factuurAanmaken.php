@@ -32,6 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
 <?php echo "Totaalbedrag: € " . $gekozenKlant[0]['totaalBedrag']?>
 <br>
 
+<h2>Gebruikte materialen</h2>
+
+<?php echo "Gebruikte materialen: <br>" . str_replace(", ", "<br>", $gekozenKlant[0]['materiaal']);  ?>
+
+<br><br>
+
+<?php echo "Totaalprijs van de gebruikte materialen: € " . $gekozenKlant[0]['materiaalPrijs']; ?>
+
 <form method="post" style="margin-top:10px;">
     <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
     <input type="hidden" name="klusId" value="<?= htmlspecialchars($klusId) ?>">

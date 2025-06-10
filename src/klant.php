@@ -34,6 +34,8 @@ FROM klanten AS k
         d.urenGewerkt AS urenGewerkt,
         d.uurTarief AS uurTarief,
         d.voorrijkosten AS voorrijkosten,
+        d.gebruiktMateriaal AS materiaal,
+        d.materiaalPrijs AS materiaalPrijs,
         d.Betaald AS Betaald,
         d.gefactureerd AS gefactureerd
     FROM klanten AS k

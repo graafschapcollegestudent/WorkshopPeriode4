@@ -1,8 +1,17 @@
 <link rel="stylesheet" href="../css/style.css">
 <?php
 include_once '../src/klant.php';
+include_once '../src/vooraad.php';
 $klant = new Klant();
+$voorraad = new Vooraad();
 
+$alleVoorraad = $voorraad->geefAlleVooraden();
+
+foreach ($alleVoorraad as $product) {
+  if ($product['aantal'] <= 10){
+    echo "Let Op! Er is van {$product['naam']} nog maar {$product['aantal']} over <br>";
+  }
+}
 // Zoekfunctie
 if (isset($_POST['zoeken'])) {
   $zoekterm = $_POST['invoerAdres'];
@@ -49,4 +58,8 @@ if (isset($_POST['zoeken'])) {
 
 <form action="toevoegen.php">
   <input type="submit" value="Klant Toevoegen" class="klantToevoegen">
+</form>
+
+<form action="Voorraad.php">
+  <input type="submit" value="Voorraad bekijken" class="voorraadBekijken">
 </form>
