@@ -200,7 +200,42 @@ foreach ($klantGegevens as $klus) {
     </form> -->
 
     <form action="index.php">
-        <input type="submit" value="Terug naar overzicht">
+        <br><input type="submit" value="Terug naar overzicht">
     </form>
+
+    <form method="POST">
+        <br><br>
+        Start datum: <input type="date" name="dateStart" id=""><br>
+        Eind datum: <input type="date" name="dateEnd" id=""><br><br>
+        <input type="submit" value="Berekenen" name="berekenen">
+    </form>
+
+    <?php
+    if (isset($_POST["berekenen"]))
+    {
+        $currentDateTime = date('Y-m-d') . "<br>";
+        $startDatum = $_POST["dateStart"] . "<br>";
+        $eindDatum = $_POST["dateEnd"];
+        // echo "<br>";
+        // echo $currentDateTime;
+
+        if ($eindDatum < $currentDateTime)
+        {
+            $alleKlanten = $klant->geefKlantnaam();
+            
+            print_r($alleKlanten);
+
+            echo "<br>Tijdperiode overschreden";
+        }
+        if ($eindDatum < $startDatum)
+        {
+            echo "Startdatum moet eerder zijn dan de einddatum.";
+        }
+        else
+        {
+            echo "<br>Tijdperiode NIET overschreden";
+        }
+    }
+    ?>
 </body>
 </html>
