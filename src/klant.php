@@ -95,4 +95,9 @@ FROM klanten AS k
     $params = [$betaald, $klusId];
     return parent::voerQueryUit($query, $params) > 0;
 }
+public function betaalPeriode($overschreden) {
+    $query = "UPDATE klusdetails SET overschreden = ?;";
+    $params = [$overschreden];  
+    return parent::voerQueryUit($query, $params) > 0;
+  }
 }

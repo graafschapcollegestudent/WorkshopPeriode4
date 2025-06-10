@@ -216,24 +216,29 @@ foreach ($klantGegevens as $klus) {
         $currentDateTime = date('Y-m-d') . "<br>";
         $startDatum = $_POST["dateStart"] . "<br>";
         $eindDatum = $_POST["dateEnd"];
+        $klant = new Klant();
         // echo "<br>";
         // echo $currentDateTime;
 
         if ($eindDatum < $currentDateTime)
         {
-            $alleKlanten = $klant->geefKlantnaam();
-            
-            print_r($alleKlanten);
-
-            echo "<br>Tijdperiode overschreden";
+            echo "overschreden<br>";
+            $overschreden = 1;
+            echo $overschreden;
+            $klant->betaalPeriode($overschreden);
         }
         if ($eindDatum < $startDatum)
         {
-            echo "Startdatum moet eerder zijn dan de einddatum.";
+            echo "Startdatum moet eerder zijn dan de einddatum.<br>";
+            $overschreden = 0;
+            echo $overschreden;
         }
-        else
+        if ($currentDateTime < $eindDatum)
         {
-            echo "<br>Tijdperiode NIET overschreden";
+            echo "<br>Tijdperiode NIET overschreden<br>";
+            $overschreden = 0;
+            echo $overschreden;
+            $klant->betaalPeriode($overschreden);
         }
     }
     ?>
