@@ -221,7 +221,15 @@ foreach ($klantGegevens as $klus) {
 
         if ($eindDatum < $currentDateTime)
         {
+            $alleKlanten = $klant->geefKlantnaam();
+            
+            print_r($alleKlanten);
+
             echo "<br>Tijdperiode overschreden";
+        }
+        if ($eindDatum < $startDatum)
+        {
+            echo "Startdatum moet eerder zijn dan de einddatum.";
         }
         else
         {
