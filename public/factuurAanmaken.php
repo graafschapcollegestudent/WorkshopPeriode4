@@ -5,10 +5,9 @@ $klusId = $_GET['klusId'];
 $klant = new Klant();
 
 $gekozenKlant = $klant->geefKlantOpId($id);
+$currentDateTime = date('Y-m-d');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
-    $currentDateTime = date('Y-m-d') . "<br>";
-    
     
     $factuurDatum = $_POST["factuurDatum"];
     $vervalDatum = $_POST["vervalDatum"];
@@ -64,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
 
 <form method="post" style="margin-top:10px;">
     <h2>Factuur</h2>
-    factuurdatum: <input type="date" name="factuurDatum" id=""><br><br>
+    factuurdatum: <input type="date" name="factuurDatum" id="" value="<?= date('Y-m-d') ?>" readonly><br><br>
     vervaldatum: <input type="date" name="vervalDatum" id=""><br><br>
 
     <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">

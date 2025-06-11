@@ -32,6 +32,22 @@ foreach ($klantGegevens as $klus) {
     }
 }
 
+// Check of gefactureerde klussen te laat zijn
+foreach ($gefactureerd as &$klus) {
+    if (!empty($klus['vervalDatum']) && !$klus['Betaald']) {
+        $vervalDatum = new DateTime($klus['vervalDatum']);
+        $vandaag = new DateTime();
+        if ($vervalDatum < $vandaag) {
+            $klus['teLaat'] = true;
+        } else {
+            $klus['teLaat'] = false;
+        }
+    } else {
+        $klus['teLaat'] = false;
+    }
+}
+unset($klus);
+
 $heeftKlus = false;
 $heeftKosten = false;
 foreach ($klantGegevens as $klus) {
@@ -126,6 +142,7 @@ foreach ($klantGegevens as $klus) {
                 <?php endif; ?>
                 <th>Status</th>
                 <th>Betaald</th>
+                <th>Te Laat</th>
             </tr>
             <?php foreach ($gefactureerd as $klus): ?>
                 <tr>
@@ -146,6 +163,7 @@ foreach ($klantGegevens as $klus) {
                             <input type="hidden" name="betaaldOpslaan" value="1">
                         </form>
                     </td>
+                    <td><?= !empty($klus['teLaat']) ? '<span style="color:red;">Te laat</span>' : '' ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
@@ -167,7 +185,6 @@ foreach ($klantGegevens as $klus) {
                     <th>Totale kosten</th>
                 <?php endif; ?>
                 <th>Status</th>
-                <!-- <th>Vewijderen</th> -->
             </tr>
             <?php foreach ($betaald as $klus): ?>
                 <tr>
@@ -194,16 +211,9 @@ foreach ($klantGegevens as $klus) {
         <input type="hidden" name="id" value="<?= $klantGegevens[0]['klantId'] ?>">
         <input type="submit" value="Klus Toevoegen">
     </form>
-    <!-- <form method="post" action="updateAdres.php">
-        <input type="hidden" name="klantId" value="<?= $klantGegevens[0]['klantId'] ?>">
-        <input type="text" name="nieuwAdres" placeholder="Nieuw adres" required>
-        <input type="submit" value="Adres bijwerken">
-    </form> -->
 
     <form action="index.php">
         <br><input type="submit" value="Terug naar overzicht">
     </form>
-
-    
 </body>
 </html>
