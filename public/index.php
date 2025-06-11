@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/style.css">
 <?php
 include_once '../src/klant.php';
 $klant = new Klant();

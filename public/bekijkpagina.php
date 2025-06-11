@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/style.css">
 <?php
 require_once('../src/klant.php');
 
@@ -203,44 +204,6 @@ foreach ($klantGegevens as $klus) {
         <br><input type="submit" value="Terug naar overzicht">
     </form>
 
-    <form method="POST">
-        <br><br>
-        Start datum: <input type="date" name="dateStart" id=""><br>
-        Eind datum: <input type="date" name="dateEnd" id=""><br><br>
-        <input type="submit" value="Berekenen" name="berekenen">
-    </form>
-
-    <?php
-    if (isset($_POST["berekenen"]))
-    {
-        $currentDateTime = date('Y-m-d') . "<br>";
-        $startDatum = $_POST["dateStart"] . "<br>";
-        $eindDatum = $_POST["dateEnd"];
-        $klant = new Klant();
-        // echo "<br>";
-        // echo $currentDateTime;
-
-        if ($eindDatum < $currentDateTime)
-        {
-            echo "overschreden<br>";
-            $overschreden = 1;
-            echo $overschreden;
-            $klant->betaalPeriode($overschreden);
-        }
-        if ($eindDatum < $startDatum)
-        {
-            echo "Startdatum moet eerder zijn dan de einddatum.<br>";
-            $overschreden = 0;
-            echo $overschreden;
-        }
-        if ($currentDateTime < $eindDatum)
-        {
-            echo "<br>Tijdperiode NIET overschreden<br>";
-            $overschreden = 0;
-            echo $overschreden;
-            $klant->betaalPeriode($overschreden);
-        }
-    }
-    ?>
+    
 </body>
 </html>
