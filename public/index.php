@@ -28,6 +28,7 @@ if (isset($_POST['zoeken'])) {
       <th>Telefoonnummer</th>
       <th>Adres</th>
       <th>Bekijk</th>
+      <th>Vervallen facturen</th>
     </tr>
 
     <?php
@@ -39,6 +40,7 @@ if (isset($_POST['zoeken'])) {
         <td><?= htmlspecialchars($rij['telefoon']); ?></td>
         <td><?= htmlspecialchars($rij['adres'] ?? ''); ?></td>
         <td><a href="bekijkpagina.php?id=<?= urlencode($rij['klantId']); ?>">Bekijk</a></td>
+        <td class="red"><?= $klant->overschredenFactuur($rij['klantId']); ?></td>
       </tr>
     <?php endforeach; ?>
   </table>
@@ -49,3 +51,10 @@ if (isset($_POST['zoeken'])) {
 <form action="toevoegen.php">
   <input type="submit" value="Klant Toevoegen" class="klantToevoegen">
 </form>
+
+<style>
+  .red{
+    color: red;
+    font-weight: bold;
+  }
+</style>
