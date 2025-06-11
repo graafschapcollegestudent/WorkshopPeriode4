@@ -12,32 +12,32 @@ class Vooraad extends Database
         return parent::voerQueryUit($query);
     }
 
-    // public function slaVooraadOp($Naam, $Vooraad, $Maat)
-    // {
-    //     if ($Naam === "" || $Vooraad === "" || $Maat === "") {
-    //         return false;
-    //     }
+    public function slaVooraadOp($Naam, $Vooraad, $Maat)
+    {
+        if ($Naam === "" || $Vooraad === "" || $Maat === "") {
+            return false;
+        }
 
-    //     $query = "UPDATE klusdetails 
-    //         SET 
-    //             urenGewerkt = ?, 
-    //             totaalBedrag = ?,
-    //             uurTarief = ?,
-    //             voorrijKosten = ?,
-    //             klant = ?,
-    //             Betaald = ?
-    //         WHERE klusId = ?;";
+        $query = "UPDATE klusdetails 
+            SET 
+                urenGewerkt = ?, 
+                totaalBedrag = ?,
+                uurTarief = ?,
+                voorrijKosten = ?,
+                klant = ?,
+                Betaald = ?
+            WHERE klusId = ?;";
 
-    //     $params = [$Naam, $Vooraad, $Maat];
+        $params = [$Naam, $Vooraad, $Maat];
 
-    //     try {
-    //         $result = parent::voerQueryUit($query, $params);
-    //         return $result > 0;
-    //     } catch (Exception $e) {
-    //         error_log("Database error: " . $e->getMessage());
-    //         return false;
-    //     }
-    // }
+        try {
+            $result = parent::voerQueryUit($query, $params);
+            return $result > 0;
+        } catch (Exception $e) {
+            error_log("Database error: " . $e->getMessage());
+            return false;
+        }
+    }
 
     public function voegVooraadToe($naam, $aantal)
     {
