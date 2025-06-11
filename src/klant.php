@@ -45,9 +45,9 @@ FROM klanten AS k
 
     return parent::voerQueryUit($query, $params);
   }
-  public function markeerKlusAlsGefactureerd($klusId) {
-    $query = "UPDATE klusdetails SET gefactureerd = 1 WHERE klusId = ?";
-    $params = [$klusId];
+  public function factureerKlus($klusId, $factuurDatum, $vervalDatum) {
+    $query = "UPDATE klusdetails SET gefactureerd = 1, factuurDatum = ?, vervalDatum = ? WHERE klusId = ?";
+    $params = [$factuurDatum, $vervalDatum, $klusId];
     return parent::voerQueryUit($query, $params) > 0;
 }
   public function voegKlantToe($naam, $adres, $telefoon, $email, $opmerking)
@@ -99,5 +99,13 @@ public function betaalPeriode($overschreden) {
     $query = "UPDATE klusdetails SET overschreden = ?;";
     $params = [$overschreden];  
     return parent::voerQueryUit($query, $params) > 0;
+  }
+public function overschredenFactuur($klantId) {
+    $query = "SELECT count(klusId) AS 'aantal' FROM klusdetails WHERE vervalDatum < sysdate() AND klantId = ? AND (Betaald IS NULL OR Betaald <> 1);";
+    $params = [$klantId];
+
+    $test = parent::voerQueryUit($query, $params);
+    // print_r($test[0]['aantal']);
+    return $test[0]['aantal'] > 0;
   }
 }

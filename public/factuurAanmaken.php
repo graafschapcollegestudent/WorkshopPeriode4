@@ -7,30 +7,35 @@ $klant = new Klant();
 $gekozenKlant = $klant->geefKlantOpId($id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
-    $klant->markeerKlusAlsGefactureerd($klusId);
     $currentDateTime = date('Y-m-d') . "<br>";
-        $datum = $_POST["dateEnd"] ?? "" . "<br>";
+    
+    
+    $factuurDatum = $_POST["factuurDatum"];
+    $vervalDatum = $_POST["vervalDatum"];
+    
+    $klant->factureerKlus($klusId, $factuurDatum, $vervalDatum);
 
-        if ($datum < $currentDateTime)
-        {
-            echo "overschreden<br>";
-            $overschreden = 1;
-            echo $overschreden;
-            $klant->betaalPeriode($overschreden);
-        }
-        if ($datum < $currentDateTime)
-        {
-            echo "Startdatum moet eerder zijn dan de einddatum.<br>";
-            $overschreden = 0;
-            echo $overschreden;
-        }
-        if ($currentDateTime < $datum)
-        {
-            echo "<br>Tijdperiode NIET overschreden<br>";
-            $overschreden = 0;
-            echo $overschreden;
-            $klant->betaalPeriode($overschreden);
-        }
+
+        // if ($datum < $currentDateTime)
+        // {
+        //     echo "overschreden<br>";
+        //     $overschreden = 1;
+        //     echo $overschreden;
+        //     $klant->betaalPeriode($overschreden);
+        // }
+        // if ($datum < $currentDateTime)
+        // {
+        //     echo "Startdatum moet eerder zijn dan de einddatum.<br>";
+        //     $overschreden = 0;
+        //     echo $overschreden;
+        // }
+        // if ($currentDateTime < $datum)
+        // {
+        //     echo "<br>Tijdperiode NIET overschreden<br>";
+        //     $overschreden = 0;
+        //     echo $overschreden;
+        //     $klant->betaalPeriode($overschreden);
+        // }
     
     header('Location: bekijkpagina.php?id=' . $id);
     exit;
@@ -56,17 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
 <?php echo "Totaalbedrag: € " . $gekozenKlant[0]['totaalBedrag']?>
 <br>
 
-<h2>Betalen voor:</h2>
 
-    <form method="POST">
-        <br><br>
-        <input type="date" name="dateEnd" id=""><br><br>
-    </form>
-        <?php
-
-        
-?>
 <form method="post" style="margin-top:10px;">
+    <h2>Factuur</h2>
+    factuurdatum: <input type="date" name="factuurDatum" id=""><br><br>
+    vervaldatum: <input type="date" name="vervalDatum" id=""><br><br>
+
     <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
     <input type="hidden" name="klusId" value="<?= htmlspecialchars($klusId) ?>">
     <button type="submit" name="opslaan">Opslaan</button>
