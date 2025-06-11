@@ -11,6 +11,7 @@
         <br>
         <label for="">Product Aantal  </label><input type="text" name="Aantal" id="aantal" placeholder="Aantal" required>
         <br>
+        <label for="">Product Prijs </label> <input type="text" name="Prijs" id="prijs" placeholder="Prijs" required>
         <input type="submit" value="Toevoegen" name="submit">
     </form>
 </body>
@@ -23,8 +24,9 @@ $nieuweVooraad = new Vooraad();
 if (isset($_POST['submit'])) {
     $naam = $_POST['Naam'];
     $aantal = $_POST['Aantal'];
+    $prijs = $_POST['Prijs'];
 
-    if ($nieuweVooraad->voegVooraadToe($naam, $aantal)) {
+    if ($nieuweVooraad->voegVooraadToe($naam, $aantal, $prijs)) {
         header('Location: Vooraad.php');
     } else {
         echo "het toevoegen is niet gelukt";
