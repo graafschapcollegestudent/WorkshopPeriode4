@@ -53,6 +53,10 @@ if (isset($_POST['zoeken'])) {
   <input type="submit" value="Klant Toevoegen" class="klantToevoegen">
 </form>
 
+<form action="Voorraad.php">
+  <input type="submit" value="Voorraad bekijken" class="voorraadBekijken">
+</form>
+
 <style>
   .red{
     color: red;
