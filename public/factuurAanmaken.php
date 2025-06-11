@@ -14,28 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
     $vervalDatum = $_POST["vervalDatum"];
     
     $klant->factureerKlus($klusId, $factuurDatum, $vervalDatum);
-
-
-        // if ($datum < $currentDateTime)
-        // {
-        //     echo "overschreden<br>";
-        //     $overschreden = 1;
-        //     echo $overschreden;
-        //     $klant->betaalPeriode($overschreden);
-        // }
-        // if ($datum < $currentDateTime)
-        // {
-        //     echo "Startdatum moet eerder zijn dan de einddatum.<br>";
-        //     $overschreden = 0;
-        //     echo $overschreden;
-        // }
-        // if ($currentDateTime < $datum)
-        // {
-        //     echo "<br>Tijdperiode NIET overschreden<br>";
-        //     $overschreden = 0;
-        //     echo $overschreden;
-        //     $klant->betaalPeriode($overschreden);
-        // }
     
     header('Location: bekijkpagina.php?id=' . $id);
     exit;
