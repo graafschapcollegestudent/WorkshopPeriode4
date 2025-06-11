@@ -35,7 +35,8 @@ FROM klanten AS k
         d.uurTarief AS uurTarief,
         d.voorrijkosten AS voorrijkosten,
         d.Betaald AS Betaald,
-        d.gefactureerd AS gefactureerd
+        d.gefactureerd AS gefactureerd,
+        d.vervalDatum AS vervalDatum
     FROM klanten AS k
     LEFT JOIN klusdetails AS d 
         ON d.klantId = k.klantId
@@ -70,7 +71,7 @@ FROM klanten AS k
         k.klantId AS klantId
         FROM klanten AS k
         LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId
-        WHERE (a.adres LIKE ? AND a.actief = 1) OR k.klant LIKE ?";
+        WHERE k.adres LIKE ? OR k.klant LIKE ?";
     $params = ["%{$zoekterm}%", "%{$zoekterm}%"];
     return parent::voerQueryUit($query, $params);
   }

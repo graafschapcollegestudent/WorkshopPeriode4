@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/style.css">
 <?php
 include_once '../src/klant.php';
 $klant = new Klant();
@@ -50,6 +51,10 @@ if (isset($_POST['zoeken'])) {
 
 <form action="toevoegen.php">
   <input type="submit" value="Klant Toevoegen" class="klantToevoegen">
+</form>
+
+<form action="Voorraad.php">
+  <input type="submit" value="Voorraad bekijken" class="voorraadBekijken">
 </form>
 
 <style>
