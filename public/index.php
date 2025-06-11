@@ -1,7 +1,17 @@
 <link rel="stylesheet" href="../css/style.css">
 <?php
 include_once '../src/klant.php';
+include_once '../src/vooraad.php';
+
 $klant = new Klant();
+$voorraad = new Vooraad();
+$alleVoorraad = $voorraad->geefAlleVooraden();
+
+foreach ($alleVoorraad as $product) {
+  if ($product['aantal'] <= 10){
+    echo "Let Op! Er is van {$product['naam']} nog maar {$product['aantal']} over <br>";
+  }
+}
 
 // Zoekfunctie
 if (isset($_POST['zoeken'])) {
