@@ -5,19 +5,38 @@ class Klant extends Database
 {
 
   public function geefAlleKlanten()
-{
+  {
     $query = "SELECT
     k.klant AS naam, 
     k.telefoonnummer AS telefoon, 
-    -- Straks a.adres ipv k.adres
     k.adres AS adres,
     k.`e-mailadres` AS email, 
     k.klantId AS klantId
-FROM klanten AS k
--- LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId
--- AND a.actief = 1";
+FROM klanten AS k";
     return parent::voerQueryUit($query);
-}
+  }
+  public function verwerkOudAdres($id, $adres)
+  {
+    $query = "
+  UPDATE klanten 
+  SET oudeAdressen = 
+    CASE 
+      WHEN oudeAdressen IS NULL OR oudeAdressen = '' 
+      THEN ? 
+      ELSE CONCAT(oudeAdressen, ', ', ?) 
+    END 
+  WHERE klantId = ?;";
+    $params = [$adres, $adres, $id];
+
+    return parent::voerQueryUit($query, $params);
+  }
+  public function updateAdres($id, $adres)
+  {
+    $query = "UPDATE klanten SET adres = ? WHERE klantId = ?;";
+    $params = [$adres, $id];
+
+    return parent::voerQueryUit($query, $params);
+  }
   public function geefKlantOpId($id)
   {
     $query = "SELECT 
@@ -27,6 +46,7 @@ FROM klanten AS k
         k.telefoonnummer AS telefoon,
         k.`e-mailadres` AS email,
         k.klantId AS klantId,
+        k.oudeAdressen AS oud,
         d.klus AS klus,
         d.detailsKlus AS detailsKlus,
         d.KlusId AS klusId,
@@ -41,16 +61,17 @@ FROM klanten AS k
     LEFT JOIN klusdetails AS d 
         ON d.klantId = k.klantId
     WHERE k.klantId = ?;";
-    
+
     $params = [$id];
 
     return parent::voerQueryUit($query, $params);
   }
-  public function factureerKlus($klusId, $factuurDatum, $vervalDatum) {
+  public function factureerKlus($klusId, $factuurDatum, $vervalDatum)
+  {
     $query = "UPDATE klusdetails SET gefactureerd = 1, factuurDatum = ?, vervalDatum = ? WHERE klusId = ?";
     $params = [$factuurDatum, $vervalDatum, $klusId];
     return parent::voerQueryUit($query, $params) > 0;
-}
+  }
   public function voegKlantToe($naam, $adres, $telefoon, $email, $opmerking)
   {
     if ($naam == "" || $adres == "" || $telefoon == "" || $email == "") {
@@ -68,40 +89,27 @@ FROM klanten AS k
         k.telefoonnummer AS telefoon, 
         k.adres AS adres, 
         k.`e-mailadres` AS email, 
-        k.klantId AS klantId
+        k.klantId AS klantId,
+        k.oudeAdressen AS oud
         FROM klanten AS k
-        LEFT JOIN klant_adressen AS a ON k.klantId = a.klantId
-        WHERE k.adres LIKE ? OR k.klant LIKE ?";
-    $params = ["%{$zoekterm}%", "%{$zoekterm}%"];
+        WHERE k.adres LIKE ? OR k.klant LIKE ? OR k.oudeAdressen LIKE ?";
+    $params = ["%{$zoekterm}%", "%{$zoekterm}%", "%{$zoekterm}%"];
     return parent::voerQueryUit($query, $params);
   }
-  public function voegAdresToe($klantid, $adres){
-    $query = "INSERT INTO klant_adressen (adres, klantId, actief) VALUES (?, ?, 1);";
-    return parent::voerQueryUit($query, [$adres, $klantid]);
-  }
-  public function deactiveerHuidigeAdres($klantid){
-    $query = "UPDATE klant_adressen SET actief = 0 WHERE klantId = ? ";
-    return parent::voerQueryUit($query, [$klantid]);
-  }
-  public function geefActiefAdres($klantid){
-    $query="SELECT adres FROM klant_adressen WHERE klantId=? AND actief = 1 LIMIT 1";
-    return parent::voerQueryUit($query, [$klantid])[0]['adres'] ?? '';
-  }
-  public function geefAdressenVanKlant($klantid){
-    $query="SELECT adres, actief, datumToegevoegd FROM klant_adressen WHERE klantId=?";
-    return parent::voerQueryUit($query, [$klantid]);
-  }
-  public function updateBetaaldStatus($klusId, $betaald) {
+  public function updateBetaaldStatus($klusId, $betaald)
+  {
     $query = "UPDATE klusdetails SET Betaald = ? WHERE klusId = ?";
     $params = [$betaald, $klusId];
     return parent::voerQueryUit($query, $params) > 0;
-}
-public function betaalPeriode($overschreden) {
+  }
+  public function betaalPeriode($overschreden)
+  {
     $query = "UPDATE klusdetails SET overschreden = ?;";
-    $params = [$overschreden];  
+    $params = [$overschreden];
     return parent::voerQueryUit($query, $params) > 0;
   }
-public function overschredenFactuur($klantId) {
+  public function overschredenFactuur($klantId)
+  {
     $query = "SELECT count(klusId) AS 'aantal' FROM klusdetails WHERE vervalDatum < sysdate() AND klantId = ? AND (Betaald IS NULL OR Betaald <> 1);";
     $params = [$klantId];
 

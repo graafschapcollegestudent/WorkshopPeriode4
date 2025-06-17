@@ -123,6 +123,7 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
 let materiaalTeller = 1;
 
 document.getElementById('voegMateriaalToe').addEventListener('click', () => {
+    
     const blok = document.createElement('div');
     blok.className = 'materiaal-blok';
     blok.innerHTML = `
