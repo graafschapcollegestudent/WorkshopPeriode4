@@ -16,7 +16,7 @@ $klantNaam = $klantGegevens[0]['naam'] ?? '';
 // Haal bestaande kosten op (voor invullen formulier)
 $kostenGegevens = ($klusId) ? ($kosten->haalKostenOp($klusId)[0] ?? null) : null;
 $alleVoorraad = $voorraad->geefAlleVooraden();
-$materiaalKosten = $_POST['aantalGebruikt'] ?? [];
+$materiaalKosten = $_POST['materiaal'] ?? [];
 
 if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
     $uren = (float) str_replace(',', '.', $_POST['uren'] ?? '0');
@@ -24,14 +24,13 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
     $voorrijKosten = (float) str_replace(',', '.', $_POST['voorrijKosten'] ?? '0');
 
     $materiaalTotaal = 0.0;
-    $materiaal = [];
     $gebruikteProducten = [];
 
-    foreach ($materiaalKosten as $productId => $aantalGebruikt) {
-        $productId = (int) $productId;
-        $aantalGebruikt = (int) $aantalGebruikt;
+    foreach ($materiaalKosten as $entry) {
+        $productId = (int) ($entry['id'] ?? 0);
+        $aantalGebruikt = (int) ($entry['aantal'] ?? 0);
 
-        if ($aantalGebruikt > 0) {
+        if ($productId > 0 && $aantalGebruikt > 0) {
             foreach ($alleVoorraad as $product) {
                 if ((int)$product['voorraadId'] === $productId) {
                     $prijsPerStuk = (float) $product['prijs'];
@@ -45,7 +44,7 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
             }
         }
     }
-    
+
     $productSamenvatting = implode(', ', $gebruikteProducten);
     $arbeidsKosten = $uren * $uurTarief;
     $totaalBedrag = $arbeidsKosten + $voorrijKosten + $materiaalTotaal;
@@ -68,7 +67,7 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
     <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <div class="toevoegen-container">
+<div class="toevoegen-container">
     <h2>Kosten invoeren voor <?= htmlspecialchars($klantNaam) ?></h2>
 
     <form method="POST">
@@ -92,15 +91,24 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
             <input type="text" name="uurTarief" value="<?= htmlspecialchars(str_replace(',', '.', $kostenGegevens['uurTarief'] ?? '0')) ?>">
         </label>
 
-            <?php foreach ($alleVoorraad as $product): ?>
-                <tr>
-                    <td><?= htmlspecialchars($product['naam']) ?></td>
-                    <td>
-                        <input class="aantalGebruikt" type="number" name="aantalGebruikt[<?= $product['voorraadId'] ?>]" value="0" style="width: 100%;">
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-
+        <div class="materiaal-container">
+            <h3>Materiaalgebruik</h3>
+            <div id="materiaalBlokken">
+                <div class="materiaal-blok">
+                    <select name="materiaal[0][id]">
+                        <option value="">-- Kies een product --</option>
+                        <?php foreach ($alleVoorraad as $product): ?>
+                            <option value="<?= $product['voorraadId'] ?>">
+                                <?= htmlspecialchars($product['naam']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="number" name="materiaal[0][aantal]" min="0" placeholder="Aantal gebruikt">
+                    <button type="button" onclick="verwijderBlok(this)">X</button>
+                </div>
+            </div>
+            <button type="button" id="voegMateriaalToe">+ Materiaal toevoegen</button>
+        </div>
 
         <input type="submit" name="berekenen" value="Berekenen">
     </form>
@@ -109,6 +117,32 @@ if (isset($_POST['berekenen']) && !empty($id) && !empty($klusId)) {
         <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
         <input type="submit" value="Terug naar klantgegevens" class="klantToevoegen">
     </form>
-  </div>
+</div>
+
+<script>
+let materiaalTeller = 1;
+
+document.getElementById('voegMateriaalToe').addEventListener('click', () => {
+    
+    const blok = document.createElement('div');
+    blok.className = 'materiaal-blok';
+    blok.innerHTML = `
+        <select name="materiaal[${materiaalTeller}][id]">
+            <option value="">-- Kies een product --</option>
+            <?php foreach ($alleVoorraad as $product): ?>
+                <option value="<?= $product['voorraadId'] ?>"><?= htmlspecialchars($product['naam']) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input type="number" name="materiaal[${materiaalTeller}][aantal]" min="0" placeholder="Aantal gebruikt">
+        <button type="button" onclick="verwijderBlok(this)">X</button>
+    `;
+    document.getElementById('materiaalBlokken').appendChild(blok);
+    materiaalTeller++;
+});
+
+function verwijderBlok(btn) {
+    btn.parentElement.remove();
+}
+</script>
 </body>
 </html>

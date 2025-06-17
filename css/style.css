@@ -135,3 +135,44 @@ a:hover {
   width: 100%;
   margin-top: 10px;
 }
+.materiaal-container {
+    margin-top: 20px;
+}
+
+.materiaal-blok {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.materiaal-blok select,
+.materiaal-blok input {
+    flex: 1;
+    padding: 5px;
+}
+
+.materiaal-blok button {
+    padding: 6px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.materiaal-blok button:hover {
+    background-color: #d32f2f;
+}
+
+#voegMateriaalToe {
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+#voegMateriaalToe:hover {
+    background-color: #388E3C;
+}

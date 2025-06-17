@@ -1,7 +1,17 @@
 <link rel="stylesheet" href="../css/style.css">
 <?php
 include_once '../src/klant.php';
+include_once '../src/vooraad.php';
+
 $klant = new Klant();
+$voorraad = new Vooraad();
+$alleVoorraad = $voorraad->geefAlleVooraden();
+
+foreach ($alleVoorraad as $product) {
+  if ($product['aantal'] <= 10){
+    echo "Let Op! Er is van {$product['naam']} nog maar {$product['aantal']} over <br>";
+  }
+}
 
 // Zoekfunctie
 if (isset($_POST['zoeken'])) {
@@ -28,6 +38,7 @@ if (isset($_POST['zoeken'])) {
       <th>e-mail</th>
       <th>Telefoonnummer</th>
       <th>Adres</th>
+      <th>Adres Wijzigen</th>
       <th>Bekijk</th>
       <th>Vervallen facturen</th>
     </tr>
@@ -40,6 +51,7 @@ if (isset($_POST['zoeken'])) {
         <td><?= htmlspecialchars($rij['email']); ?></td>
         <td><?= htmlspecialchars($rij['telefoon']); ?></td>
         <td><?= htmlspecialchars($rij['adres'] ?? ''); ?></td>
+        <td><a href="updateAdres.php?id=<?= urlencode($rij['klantId']); ?>">Adres Wijzigen</a></td>
         <td><a href="bekijkpagina.php?id=<?= urlencode($rij['klantId']); ?>">Bekijk</a></td>
         <td class="red"><?= $klant->overschredenFactuur($rij['klantId']); ?></td>
       </tr>
