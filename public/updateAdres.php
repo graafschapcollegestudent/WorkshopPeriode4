@@ -11,3 +11,4 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     header('Location: bekijkpagina.php?id='. urlencode($klantid));
     exit;
 }
+//hoi
