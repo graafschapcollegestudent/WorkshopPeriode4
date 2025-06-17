@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/style.css">
 <?php
 require_once '../src/klant.php';
 require_once '../src/klus.php';

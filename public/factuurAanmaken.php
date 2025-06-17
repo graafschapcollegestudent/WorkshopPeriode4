@@ -5,9 +5,15 @@ $klusId = $_GET['klusId'];
 $klant = new Klant();
 
 $gekozenKlant = $klant->geefKlantOpId($id);
+$currentDateTime = date('Y-m-d');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
-    $klant->markeerKlusAlsGefactureerd($klusId);
+    
+    $factuurDatum = $_POST["factuurDatum"];
+    $vervalDatum = $_POST["vervalDatum"];
+    
+    $klant->factureerKlus($klusId, $factuurDatum, $vervalDatum);
+    
     header('Location: bekijkpagina.php?id=' . $id);
     exit;
 }
@@ -32,7 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
 <?php echo "Totaalbedrag: € " . $gekozenKlant[0]['totaalBedrag']?>
 <br>
 
+
 <form method="post" style="margin-top:10px;">
+    <h2>Factuur</h2>
+    factuurdatum: <input type="date" name="factuurDatum" id="" value="<?= date('Y-m-d') ?>" readonly><br><br>
+    vervaldatum: <input type="date" name="vervalDatum" id=""><br><br>
+
     <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
     <input type="hidden" name="klusId" value="<?= htmlspecialchars($klusId) ?>">
     <button type="submit" name="opslaan">Opslaan</button>
