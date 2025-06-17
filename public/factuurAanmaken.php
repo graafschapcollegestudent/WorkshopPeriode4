@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
     $factuurDatum = $_POST["factuurDatum"];
     $vervalDatum = $_POST["vervalDatum"];
     $klant->factureerKlus($klusId, $factuurDatum, $vervalDatum);
+    
     header('Location: bekijkpagina.php?id=' . $id);
     exit;
 }
