@@ -1,72 +1,58 @@
 <?php
 include_once '../src/klant.php';
+
 $id = $_GET['id'];
 $klusId = $_GET['klusId'];
 $klant = new Klant();
 
 $gekozenKlant = $klant->geefKlantOpId($id);
-$currentDateTime = date('Y-m-d');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opslaan'])) {
-    
     $factuurDatum = $_POST["factuurDatum"];
     $vervalDatum = $_POST["vervalDatum"];
-    
     $klant->factureerKlus($klusId, $factuurDatum, $vervalDatum);
-
-
-        // if ($datum < $currentDateTime)
-        // {
-        //     echo "overschreden<br>";
-        //     $overschreden = 1;
-        //     echo $overschreden;
-        //     $klant->betaalPeriode($overschreden);
-        // }
-        // if ($datum < $currentDateTime)
-        // {
-        //     echo "Startdatum moet eerder zijn dan de einddatum.<br>";
-        //     $overschreden = 0;
-        //     echo $overschreden;
-        // }
-        // if ($currentDateTime < $datum)
-        // {
-        //     echo "<br>Tijdperiode NIET overschreden<br>";
-        //     $overschreden = 0;
-        //     echo $overschreden;
-        //     $klant->betaalPeriode($overschreden);
-        // }
-    
     header('Location: bekijkpagina.php?id=' . $id);
     exit;
 }
 ?>
-<h2>Klantgegevens</h2>
-<?php echo "Klant: " . $gekozenKlant[0]['naam']; ?>
-<br>
-<?php echo "Telefoonnummer: " . $gekozenKlant[0]['telefoon']; ?>
-<br>
-<?php echo "Email: " . $gekozenKlant[0]['email']?>
-<br>
-<?php echo "Adres: " . $gekozenKlant[0]['adres']?>
 
-<h2>Kosten:</h2>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Factuur aanmaken</title>
+    <link rel="stylesheet" href="../css/style.css"> <!-- Pas het pad aan -->
+</head>
+<body>
 
-<?php echo "Voorrijkosten: € " . $gekozenKlant[0]['voorrijkosten']?>
-<br>
-<?php echo "Uurtarief: € " . $gekozenKlant[0]['uurTarief']?>
-<br>
-<?php echo "Aantal uur gewerkt: € " . $gekozenKlant[0]['urenGewerkt']?>
-<br>
-<?php echo "Totaalbedrag: € " . $gekozenKlant[0]['totaalBedrag']?>
-<br>
+<div class="toevoegen-container">
+    <h2>Klantgegevens</h2>
+    <p><strong>Klant:</strong> <?= $gekozenKlant[0]['naam'] ?></p>
+    <p><strong>Telefoonnummer:</strong> <?= $gekozenKlant[0]['telefoon'] ?></p>
+    <p><strong>Email:</strong> <?= $gekozenKlant[0]['email'] ?></p>
+    <p><strong>Adres:</strong> <?= $gekozenKlant[0]['adres'] ?></p>
 
+    <h2>Kosten</h2>
+    <p><strong>Voorrijkosten:</strong> € <?= $gekozenKlant[0]['voorrijkosten'] ?></p>
+    <p><strong>Uurtarief:</strong> € <?= $gekozenKlant[0]['uurTarief'] ?></p>
+    <p><strong>Uren gewerkt:</strong> <?= $gekozenKlant[0]['urenGewerkt'] ?> uur</p>
+    <p><strong>Totaalbedrag:</strong> € <?= $gekozenKlant[0]['totaalBedrag'] ?></p>
 
-<form method="post" style="margin-top:10px;">
-    <h2>Factuur</h2>
-    factuurdatum: <input type="date" name="factuurDatum" id="" value="<?= date('Y-m-d') ?>" readonly><br><br>
-    vervaldatum: <input type="date" name="vervalDatum" id=""><br><br>
+    <form method="post">
+        <h2>Factuur</h2>
+        
+        <label for="factuurDatum">Factuurdatum</label>
+        <input type="date" name="factuurDatum" id="factuurDatum" value="<?= date('Y-m-d') ?>" readonly>
+<br>
+        <label for="vervalDatum">Vervaldatum</label>
+        <input type="date" name="vervalDatum" id="vervalDatum" required>
 
-    <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
-    <input type="hidden" name="klusId" value="<?= htmlspecialchars($klusId) ?>">
-    <button type="submit" name="opslaan">Opslaan</button>
-</form>
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <input type="hidden" name="klusId" value="<?= $klusId ?>">
+
+        <input type="submit" name="opslaan" value="Opslaan">
+    </form>
+</div>
+
+</body>
+</html>
