@@ -38,6 +38,7 @@ if (isset($_POST['zoeken'])) {
       <th>e-mail</th>
       <th>Telefoonnummer</th>
       <th>Adres</th>
+      <th>Adres Wijzigen</th>
       <th>Bekijk</th>
       <th>Vervallen facturen</th>
     </tr>
@@ -50,6 +51,7 @@ if (isset($_POST['zoeken'])) {
         <td><?= htmlspecialchars($rij['email']); ?></td>
         <td><?= htmlspecialchars($rij['telefoon']); ?></td>
         <td><?= htmlspecialchars($rij['adres'] ?? ''); ?></td>
+        <td><a href="updateAdres.php?id=<?= urlencode($rij['klantId']); ?>">Adres Wijzigen</a></td>
         <td><a href="bekijkpagina.php?id=<?= urlencode($rij['klantId']); ?>">Bekijk</a></td>
         <td class="red"><?= $klant->overschredenFactuur($rij['klantId']); ?></td>
       </tr>
